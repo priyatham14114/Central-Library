@@ -1,3 +1,16 @@
-ID;title;stock
-1;Wuthering Heights;100
-2;Jane Eyre;500
+ID,author,title,ISBN,quantity
+550e8400-e29b-41d4-a716-446655440000,F. Scott Fitzgerald,The Great Gatsby,9780743,5
+550e8400-e29b-41d4-a716-446655440001,George Orwell,1984,97804515,4
+550e8400-e29b-41d4-a716-446655440002,Harper Lee,To Kill a Mockingbird,978006,4
+550e8400-e29b-41d4-a716-446655440003,Jane Austen,Pride and Prejudice,9780141,2
+550e8400-e29b-41d4-a716-446655440004,J.D. Salinger,The Catcher in the Rye,9780316,3
+550e8400-e29b-41d4-a716-446655440005,Mark Twain,The Adventures of Huckleberry Finn,978048,6
+550e8400-e29b-41d4-a716-446655440006,J.K. Rowling,Harry Potter and the Sorcerer's Stone,978043,10
+550e8400-e29b-41d4-a716-446655440007,J.R.R. Tolkien,The Hobbit,978034,8
+550e8400-e29b-41d4-a716-446655440008,Leo Tolstoy,War and Peace,978185,7
+550e8400-e29b-41d4-a716-446655440009,Charlotte Brontë,Jane Eyre,97801,5
+550e8400-e29b-41d4-a716-446655440010,Herman Melville,Moby-Dick,9781503,4
+550e8400-e29b-41d4-a716-446655440011,Emily Brontë,Wuthering Heights,978014,3
+550e8400-e29b-41d4-a716-446655440012,Charles Dickens,A Tale of Two Cities,97804,6
+550e8400-e29b-41d4-a716-446655440013,Fyodor Dostoevsky,Crime and Punishment,97804,5
+550e8400-e29b-41d4-a716-446655440014,Gabriel García Márquez,One Hundred Years of Solitude,97800,7
