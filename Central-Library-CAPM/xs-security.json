@@ -1,0 +1,38 @@
+{
+  "xsappname": "central-library-capm",
+  "tenant-mode": "dedicated",
+  "description": "Security profile of called application",
+  "scopes": [
+    {
+      "name": "uaa.user",
+      "description": "UAA"
+    },
+    {
+      "name": "$XSAPPNAME.Admin",
+      "description": "Admin Scope"
+    }
+  ],
+  "role-templates": [
+    {
+      "name": "Token_Exchange",
+      "description": "UAA",
+      "scope-references": [
+        "uaa.user"
+      ]
+    },
+    {
+      "name": "Admin",
+      "description": "Admin Role Template",
+      "scope-references": [
+        "$XSAPPNAME.Admin"
+      ]
+    }
+  ],
+  "role-collections": [
+    {
+      "name": "Role-coll_LibraryAdmin",
+      "description": "Admin Can do CRUD operations",
+      "role-template-references": ["$XSAPPNAME.Admin"]
+    }
+]
+}
