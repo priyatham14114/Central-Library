@@ -32,7 +32,10 @@
     {
       "name": "Role-coll_LibraryAdmin",
       "description": "Admin Can do CRUD operations",
-      "role-template-references": ["$XSAPPNAME.Admin"]
+      "role-template-references": [
+        "$XSAPPNAME.Admin"
+      ]
     }
-]
+  ],
+  "attributes": []
 }
