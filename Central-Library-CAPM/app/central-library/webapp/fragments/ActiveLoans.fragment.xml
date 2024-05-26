@@ -27,7 +27,7 @@
                         <Button
                             id="idAddButton"
                             text="Add"
-                            press="onAdd"
+                            press="onAddNewLoanPress"
                         />
                         <Button
                             id="idCloseBTN"

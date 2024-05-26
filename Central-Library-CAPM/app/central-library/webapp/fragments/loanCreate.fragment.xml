@@ -5,17 +5,17 @@
 >
     <!--  -->
     <Dialog
-        id="idCreateBookDialog"
+        id="idNewLoanDialog"
         resizable="true"
         draggable="true"
         contentWidth="30%"
-        title="Enter Book Details"
+        title="Add New Loan"
     >
-        <beginButton />
-        <endButton />
+        <!-- <beginButton />
+        <endButton /> -->
         <content>
             <form:SimpleForm
-                id="idBooksDetailsFormToCreate"
+                id="idNewLoanFormToCreate"
                 editable="true"
                 layout="ResponsiveGridLayout"
                 labelSpanXL="3"
@@ -33,62 +33,55 @@
                 singleContainerFullSize="false"
             >
                 <Label
-                    id="idAuthorNameLabelCreate"
-                    text="Author Name"
+                    id="idNewLoanUserNameLabel"
+                    text="User Name"
                 />
                 <Input
-                    id="idAuthorName"
-                    value="{newBookModel>/authorName}"
+                    id="idNewLoanUserNameValue"
+                    value="{newLoanModel>/Borrower_Name}"
                 />
                 <Label
-                    id="idbookNameLabelCreate"
+                    id="idNewLoanUserIDLabel"
+                    text="User ID"
+                />
+                <Input
+                    id="idNewLoanUserIDInput"
+                    value="{newLoanModel>/Borrower_userid}"
+                />
+                <Label
+                    id="idNewLoanBookNameLabel"
                     text="Book Title"
                 />
                 <Input
-                    id="idbookNameInput"
-                    value="{newBookModel>/title}"
+                    id="idNewLoanBookNameInput"
+                    value="{newLoanModel>/BookName}"
                 />
                 <Label
-                    id="idstockLabelCreate"
-                    text="Stock"
+                    id="idNewLoanDueDate"
+                    text="Due Date"
                 />
                 <Input
-                    id="idStockInput"
-                    value="{newBookModel>/quantity}"
-                />
-                <Label
-                    id="idBookISBNLabelCreate"
-                    text="ISBN"
-                />
-                <Input
-                    id="idbooks_ISBNInput"
-                    value="{newBookModel>/ISBN}"
+                    id="idNewLoanDueDateInput"
+                    value="{newLoanModel>/DueDate}"
                 />
             </form:SimpleForm>
         </content>
         <HBox
-            id="idHboxCreate"
+            id="idNewLoanHboxCreate"
             class="buttonsHbox"
         >
             <Button
                 class="buttons"
-                id="idUpdateButton"
-                text="Update"
-                press="onUpdateBook"
-                type="Accept"
-            />
-            <Button
-                class="buttons"
-                id="idCreateButton"
-                text="Add"
-                press="onCreateBook"
+                id="idNewLoanSaveButton"
+                text="Save"
+                press="onSaveNewLoan"
                 type="Success"
             />
             <Button
                 class="buttons"
-                id="idCancelButton"
+                id="idNewLoanCancelButton"
                 text="Cancel"
-                press="onCloseLoginDailog"
+                press="onNewLoanDailogClose"
                 type="Negative"
             />
         </HBox>

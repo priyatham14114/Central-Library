@@ -3,19 +3,33 @@
     xmlns:form="sap.ui.layout.form"
     xmlns="sap.m"
 >
-    <!--  -->
+<!-- Fragment not used -->
     <Dialog
-        id="idCreateBookDialog"
+        id="idUpdateBookDialog"
         resizable="true"
         draggable="true"
         contentWidth="30%"
-        title="Enter Book Details"
+        title="Update Book Details"
     >
-        <beginButton />
-        <endButton />
+        <beginButton>
+            <Button
+                id="idUpdateButton"
+                text="Update"
+                press="onUpdateBook"
+                type="Accept"
+            />
+        </beginButton>
+        <endButton>
+            <Button
+                id="idCancelButton"
+                text="Cancel"
+                press="onCloseLoginDailog"
+                type="Negative"
+            />
+        </endButton>
         <content>
             <form:SimpleForm
-                id="idBooksDetailsFormToCreate"
+                id="idBooksDetailsForm"
                 editable="true"
                 layout="ResponsiveGridLayout"
                 labelSpanXL="3"
@@ -33,7 +47,7 @@
                 singleContainerFullSize="false"
             >
                 <Label
-                    id="idAuthorNameLabelCreate"
+                    id="idAuthorNameLabel"
                     text="Author Name"
                 />
                 <Input
@@ -41,7 +55,7 @@
                     value="{newBookModel>/authorName}"
                 />
                 <Label
-                    id="idbookNameLabelCreate"
+                    id="idbookNameLabel"
                     text="Book Title"
                 />
                 <Input
@@ -49,7 +63,7 @@
                     value="{newBookModel>/title}"
                 />
                 <Label
-                    id="idstockLabelCreate"
+                    id="idstockLabel"
                     text="Stock"
                 />
                 <Input
@@ -57,7 +71,7 @@
                     value="{newBookModel>/quantity}"
                 />
                 <Label
-                    id="idBookISBNLabelCreate"
+                    id="idBookISBNLabel"
                     text="ISBN"
                 />
                 <Input
@@ -66,31 +80,5 @@
                 />
             </form:SimpleForm>
         </content>
-        <HBox
-            id="idHboxCreate"
-            class="buttonsHbox"
-        >
-            <Button
-                class="buttons"
-                id="idUpdateButton"
-                text="Update"
-                press="onUpdateBook"
-                type="Accept"
-            />
-            <Button
-                class="buttons"
-                id="idCreateButton"
-                text="Add"
-                press="onCreateBook"
-                type="Success"
-            />
-            <Button
-                class="buttons"
-                id="idCancelButton"
-                text="Cancel"
-                press="onCloseLoginDailog"
-                type="Negative"
-            />
-        </HBox>
     </Dialog>
 </core:FragmentDefinition>

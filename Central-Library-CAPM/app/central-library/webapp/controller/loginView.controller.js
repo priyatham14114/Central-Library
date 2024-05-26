@@ -49,16 +49,18 @@ sap.ui.define([
                     userId = oView.byId("idUserIDInput").getValue(),
                     Password = oView.byId("idPasswordInput").getValue()
                     // &amp;
-                if (userId === "subhash@sap.com" && Password === "1234") {
-                    const oRouter = this.getOwnerComponent().getRouter();
-                    oRouter.navTo("RouteAdminView")
-                    var userId = oView.byId("idUserIDInput").setValue(""),
-                        Password = oView.byId("idPasswordInput").setValue("")
-                }
-                else {
-                    MessageToast.show("Invalid Credentials");
+                        const oRouter = this.getOwnerComponent().getRouter();
+                    oRouter.navTo("RouteUserView")
+                // if (userId === "subhash@sap.com" && Password === "1234") {
+                //     const oRouter = this.getOwnerComponent().getRouter();
+                //     oRouter.navTo("RouteAdminView")
+                //     var userId = oView.byId("idUserIDInput").setValue(""),
+                //         Password = oView.byId("idPasswordInput").setValue("")
+                // }
+                // else {
+                //     MessageToast.show("Invalid Credentials");
 
-                }
+                // }
 
             },
 

@@ -29,6 +29,14 @@
     margin-top: 10px;
     
 }
+.buttonsHbox{
+    display: flex;
+    justify-content: right;
+    margin:10px;
+}
+.buttons{
+margin-left: 10px;
+}
 /* .LoginPage{
     background-image: url("https://t3.ftcdn.net/jpg/07/29/27/48/240_F_729274803_3rb8xuW4m84gUFBQJd1jAwDQyehVs0RJ.jpg");
     background-size: cover;
