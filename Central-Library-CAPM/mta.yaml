@@ -3,138 +3,139 @@ ID: Central-Library-CAPM
 description: A simple CAP project.
 version: 1.0.0
 modules:
-- name: Central-Library-CAPM-srv
-  type: nodejs
-  path: gen/srv
-  requires:
-  - name: Central-Library-CAPM-db
-  - name: uaa_Central-Library-CAPM
-  provides:
-  - name: srv-api
-    properties:
-      srv-url: ${default-url}
-  parameters:
-    buildpack: nodejs_buildpack
-    readiness-health-check-http-endpoint: /health
-    readiness-health-check-type: http
-  build-parameters:
-    builder: npm
-- name: Central-Library-CAPM-db-deployer
-  type: hdb
-  path: gen/db
-  requires:
-  - name: Central-Library-CAPM-db
-  parameters:
-    buildpack: nodejs_buildpack
-- name: Central-Library-CAPM-destination-content
-  type: com.sap.application.content
-  requires:
-  - name: Central-Library-CAPM-destination-service
-    parameters:
-      content-target: true
-  - name: Central-Library-CAPM_html_repo_host
-    parameters:
-      service-key:
-        name: Central-Library-CAPM_html_repo_host-key
-  - name: uaa_Central-Library-CAPM
-    parameters:
-      service-key:
-        name: uaa_Central-Library-CAPM-key
-  parameters:
-    content:
-      instance:
-        destinations:
-        - Name: Central_Library_Central_Library_CAPM_html_repo_host
-          ServiceInstanceName: Central-Library-CAPM-html5-app-host-service
-          ServiceKeyName: Central-Library-CAPM_html_repo_host-key
-          sap.cloud.service: Central-Library
-        - Authentication: OAuth2UserTokenExchange
-          Name: Central_Library_uaa_Central_Library_CAPM
-          ServiceInstanceName: Central-Library-CAPM-xsuaa-service
-          ServiceKeyName: uaa_Central-Library-CAPM-key
-          sap.cloud.service: Central-Library
-        existing_destinations_policy: ignore
-  build-parameters:
-    no-source: true
-- name: Central-Library-CAPM-app-content
-  type: com.sap.application.content
-  path: .
-  requires:
-  - name: Central-Library-CAPM_html_repo_host
-    parameters:
-      content-target: true
-  build-parameters:
-    build-result: resources
+  - name: Central-Library-CAPM-srv
+    type: nodejs
+    path: gen/srv
     requires:
-    - artifacts:
-      - comappcentrallibrary.zip
-      name: comappcentrallibrary
-      target-path: resources/
-- name: comappcentrallibrary
-  type: html5
-  path: app/central-library
-  build-parameters:
-    build-result: dist
-    builder: custom
-    commands:
-    - npm install
-    - npm run build:cf
-    supported-platforms: []
-resources:
-- name: Central-Library-CAPM-db
-  type: com.sap.xs.hdi-container
-  parameters:
-    service: hana
-    service-plan: hdi-shared
-- name: Central-Library-CAPM-destination-service
-  type: org.cloudfoundry.managed-service
-  parameters:
-    config:
-      HTML5Runtime_enabled: true
-      init_data:
+      - name: Central-Library-CAPM-db
+      - name: uaa_Central-Library-CAPM
+    provides:
+      - name: srv-api
+        properties:
+          srv-url: ${default-url}
+    parameters:
+      buildpack: nodejs_buildpack
+      readiness-health-check-http-endpoint: /health
+      readiness-health-check-type: http
+    build-parameters:
+      builder: npm
+  - name: Central-Library-CAPM-db-deployer
+    type: hdb
+    path: gen/db
+    requires:
+      - name: Central-Library-CAPM-db
+    parameters:
+      buildpack: nodejs_buildpack
+  - name: Central-Library-CAPM-destination-content
+    type: com.sap.application.content
+    requires:
+      - name: Central-Library-CAPM-destination-service
+        parameters:
+          content-target: true
+      - name: Central-Library-CAPM_html_repo_host
+        parameters:
+          service-key:
+            name: Central-Library-CAPM_html_repo_host-key
+      - name: uaa_Central-Library-CAPM
+        parameters:
+          service-key:
+            name: uaa_Central-Library-CAPM-key
+    parameters:
+      content:
         instance:
           destinations:
-          - Authentication: NoAuthentication
-            Name: ui5
-            ProxyType: Internet
-            Type: HTTP
-            URL: https://ui5.sap.com
-          - Authentication: NoAuthentication
-            HTML5.DynamicDestination: true
-            HTML5.ForwardAuthToken: true
-            Name: Central-Library-CAPM-srv-api
-            ProxyType: Internet
-            Type: HTTP
-            URL: ~{srv-api/srv-url}
-          existing_destinations_policy: update
-      version: 1.0.0
-    service: destination
-    service-name: Central-Library-CAPM-destination-service
-    service-plan: lite
-  requires:
-  - name: srv-api
-- name: Central-Library-CAPM_html_repo_host
-  type: org.cloudfoundry.managed-service
-  parameters:
-    service: html5-apps-repo
-    service-name: Central-Library-CAPM-html5-app-host-service
-    service-plan: app-host
-- name: uaa_Central-Library-CAPM
-  type: org.cloudfoundry.managed-service
-  parameters:
-    config:
-      tenant-mode: dedicated
-      xsappname: Central-Library-CAPM-${org}-${space}
-    path: ./xs-security.json
-    service: xsuaa
-    service-name: Central-Library-CAPM-xsuaa-service
-    service-plan: application
+            - Name: Central_Library_Central_Library_CAPM_html_repo_host
+              ServiceInstanceName: Central-Library-CAPM-html5-app-host-service
+              ServiceKeyName: Central-Library-CAPM_html_repo_host-key
+              sap.cloud.service: Central-Library
+            - Authentication: OAuth2UserTokenExchange
+              Name: Central_Library_uaa_Central_Library_CAPM
+              ServiceInstanceName: Central-Library-CAPM-xsuaa-service
+              ServiceKeyName: uaa_Central-Library-CAPM-key
+              sap.cloud.service: Central-Library
+          existing_destinations_policy: ignore
+    build-parameters:
+      no-source: true
+  - name: Central-Library-CAPM-app-content
+    type: com.sap.application.content
+    path: .
+    requires:
+      - name: Central-Library-CAPM_html_repo_host
+        parameters:
+          content-target: true
+    build-parameters:
+      build-result: resources
+      requires:
+        - artifacts:
+            - comappcentrallibrary.zip
+          name: comappcentrallibrary
+          target-path: resources/
+  - name: comappcentrallibrary
+    type: html5
+    path: app/central-library
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+      supported-platforms:
+        []
+resources:
+  - name: Central-Library-CAPM-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana
+      service-plan: hdi-shared
+  - name: Central-Library-CAPM-destination-service
+    type: org.cloudfoundry.managed-service
+    parameters:
+      config:
+        HTML5Runtime_enabled: true
+        init_data:
+          instance:
+            destinations:
+              - Authentication: NoAuthentication
+                Name: ui5
+                ProxyType: Internet
+                Type: HTTP
+                URL: https://ui5.sap.com
+              - Authentication: NoAuthentication
+                HTML5.DynamicDestination: true
+                HTML5.ForwardAuthToken: true
+                Name: Central-Library-CAPM-srv-api
+                ProxyType: Internet
+                Type: HTTP
+                URL: ~{srv-api/srv-url}
+            existing_destinations_policy: update
+        version: 1.0.0
+      service: destination
+      service-name: Central-Library-CAPM-destination-service
+      service-plan: lite
+    requires:
+      - name: srv-api
+  - name: Central-Library-CAPM_html_repo_host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-name: Central-Library-CAPM-html5-app-host-service
+      service-plan: app-host
+  - name: uaa_Central-Library-CAPM
+    type: org.cloudfoundry.managed-service
+    parameters:
+      config:
+        tenant-mode: dedicated
+        xsappname: Central-Library-CAPM-${org}-${space}
+      path: ./xs-security.json
+      service: xsuaa
+      service-name: Central-Library-CAPM-xsuaa-service
+      service-plan: application
 parameters:
   deploy_mode: html5-repo
   enable-parallel-deployments: true
 build-parameters:
   before-all:
-  - builder: custom
-    commands:
-    - npm ci
-    - npx cds build --production
+    - builder: custom
+      commands:
+        - npm ci
+        - npx cds build --production

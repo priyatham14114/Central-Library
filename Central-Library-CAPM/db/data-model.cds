@@ -3,16 +3,17 @@ namespace my.bookshop;
 using {cuid} from '@sap/cds/common';
 
 entity Books : cuid {
-  author   : String;
-  title    : String;
-  ISBN     : Integer;
-  quantity : Integer;
+  authorName : String;
+  title      : String;
+  ISBN       : String;
+  quantity   : Integer;
 }
 
 entity AdminLogin : cuid {
   name          : String;
   adminid       : String;
   adminpassword : String;
+// ActiveloanData : Association to Activeloans
 
 }
 
@@ -20,7 +21,18 @@ entity UserLogin : cuid {
   userName     : String;
   userid       : String;
   userpassword : String;
+// activeloans  : Association to many Activeloans on activeloans.Borrower_userid=$self;
 }
+
+entity Activeloans : cuid {
+  Borrower_userid : Association to UserLogin;
+  Borrower_Name   : Association to UserLogin;
+  BookName        : Association to Books;
+  DueDate         : Date;
+}
+
+// last change here 
+// make user is associated to many active loans change the relation
 
 
 // entity Admin : cuid {

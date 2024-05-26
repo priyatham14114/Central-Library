@@ -1,7 +1,52 @@
-<mvc:View controllerName="com.app.centrallibrary.controller.loginView"
-    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
-    xmlns="sap.m">
-    <Page id="page" title="{i18n>title}">
-        <content />
-    </Page>
+<mvc:View
+    controllerName="com.app.centrallibrary.controller.loginView"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:m="sap.m"
+     xmlns:f="sap.f"
+    xmlns="sap.uxap"
+    displayBlock="true"
+    xmlns:core="sap.ui.core"
+    xmlns:form="sap.ui.layout.form"
+>
+    <ObjectPageLayout
+        id="ObjectPageLayout"
+        showTitleInHeaderContent="true"
+        upperCaseAnchorBar="true"
+        class="LoginPage"
+    >
+        <headerTitle>
+            <ObjectPageDynamicHeaderTitle id="idObjectPageDynamicHeaderTitle">
+                <expandedHeading>
+                        <m:Title
+                            id="idtitleExpandedHeading"
+                            text="Central Library"
+                            wrapping="true"
+                        />
+                </expandedHeading>
+                <expandedContent>
+                    <m:Label
+                        id="idBooksDataListPage"
+                        text="Welcomes you"
+                    />
+                </expandedContent>
+
+                <actions>
+                    <m:Button
+                        id="idLoginButton"
+                        text="Login"
+                        type="Emphasized"
+                        tooltip="Login"
+                        press="onLoginPress"
+                    />
+                    <m:Button
+                        id="idSignUpButton"
+                        text="SignUp"
+                        type="Emphasized"
+                        tooltip="SignUp"
+                        press="onSignUpPress"
+                    />
+                </actions>
+            </ObjectPageDynamicHeaderTitle>
+        </headerTitle>
+    </ObjectPageLayout>
 </mvc:View>

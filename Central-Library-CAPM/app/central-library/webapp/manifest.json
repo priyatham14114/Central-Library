@@ -89,8 +89,10 @@
           "synchronizationMode": "None",
           "operationMode": "Server",
           "autoExpandSelect": true,
-          "earlyRequests": true
-        }
+          "earlyRequests": true,
+          "groupId": "$auto"
+        },
+        "type": "sap.ui.model.odata.v4.ODataModel"
       }
     },
     "resources": {
@@ -117,6 +119,20 @@
           "target": [
             "TargetloginView"
           ]
+        },
+        {
+          "name": "RouteAdminView",
+          "pattern": "adminPage",
+          "target": [
+            "TargetadminView"
+          ]
+        },
+        {
+          "name": "RouteUserView",
+          "pattern": "userPage",
+          "target": [
+            "TargetUserView"
+          ]
         }
       ],
       "targets": {
@@ -126,6 +142,18 @@
           "clearControlAggregation": false,
           "viewId": "loginView",
           "viewName": "loginView"
+        },
+        "TargetadminView": {
+          "viewType": "XML",
+          "transition": "slide",
+          "viewId": "adminView",
+          "viewName": "adminView"
+        },
+        "TargetUserView": {
+          "viewType": "XML",
+          "transition": "slide",
+          "viewId": "userView",
+          "viewName": "userView"
         }
       }
     },
