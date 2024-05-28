@@ -16,6 +16,8 @@
                 id="idLoanTable"
                 inset="false"
                 items="{/Activeloans}"
+                mode="MultiSelect"
+                multiSelectMode="SelectAll"
             >
                 <headerToolbar>
                     <Toolbar id="idToolBar">
@@ -61,25 +63,39 @@
                             text="Due Date"
                         />
                     </Column>
+                    <Column id="idLoanTablecol5">
+                        <Text
+                            id="idClearLoanBTN"
+                            text="Clear Loan"
+                        />
+                    </Column>
                 </columns>
                 <items>
                     <ColumnListItem id="idLoanTableColListItems">
                         <cells>
                             <Text
                                 id="idLoanTableNameValue"
-                                text="{Borrower_Name/userName}"
+                                text="{user/userName}"
                             />
                             <Text
                                 id="idLoanTableUserIdValue"
-                                text="{Borrower_userid/userid}"
+                                text="{user/userid}"
                             />
                             <Text
                                 id="idLoanTableBookNameValue"
-                                text="{BookName/title}"
+                                text="{user/books/title}"
                             />
                             <Text
                                 id="idLoanTableDueDateValue"
-                                text="{DueDate}"
+                                text="{dueOn}"
+                            />
+                            <Button
+                                id="idClearLoanButton"
+                                icon="sap-icon://delete"
+                                tooltip="Delete Record"
+                                text="Close Loan"
+                                type="Negative"
+                                press="onClearLoan"
                             />
                         </cells>
                     </ColumnListItem>
@@ -87,4 +103,5 @@
             </Table>
         </content>
     </Dialog>
+    
 </core:FragmentDefinition>

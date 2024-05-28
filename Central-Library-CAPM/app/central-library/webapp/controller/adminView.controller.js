@@ -25,10 +25,20 @@ sap.ui.define([
                     ISBN: "",
                 });
                 const newLoanModel = new JSONModel({
-                    Borrower_userid: "",
-                    Borrower_Name: "",
-                    BookName: "",
-                    DueDate: ""
+                    user: {
+                        // ID: "",
+                        userName: "",
+                        userid: "",
+                        // userpassword: "",
+                        books: {
+                            // ID: "",
+                            // authorName: "",
+                            title: "",
+                            ISBN: "",
+                            // quantity: 0
+                        }
+                    },
+                    dueOn: ""
                 });
 
                 this.getView().setModel(newBookModel, "newBookModel");
@@ -248,12 +258,12 @@ sap.ui.define([
                     this.getView().byId("idBooksTable").getBinding("items").refresh();
 
                 } else {
-                    MessageToast.show("Please Select a Row to Delete");
+                    MessageToast.show("Please Select a Book to Delete");
                 }
             },
 
             onActiveLoansClick: async function () {
-                // debugger
+                debugger
                 if (!this.oActiveLoanPopUp) {
                     this.oActiveLoanPopUp = await this.loadFragment("ActiveLoans")
                 }
@@ -292,6 +302,37 @@ sap.ui.define([
                 });
                 this.oNewLoanDailog.close()
 
+            },
+            onClearLoan: async function () {
+                debugger
+                if (!this.oDeleteCautionDailog) {
+                    this.oDeleteCautionDailog = await this.loadFragment("confirmDelete")
+                }
+                this.oDeleteCautionDailog.open()
+            },
+            oDeleteCautionDailogClose: function () {
+                if (this.oDeleteCautionDailog.isOpen()) {
+                    this.oDeleteCautionDailog.close();
+                }
+            },
+            onClearLoanButtonPress: function () {
+                debugger
+                const oAdminView = this.getView(),
+                    oSelected = oAdminView.byId("idLoanTable").getSelectedItem()
+                if (oSelected) {
+                    var oUser = oSelected.getBindingContext().getObject().user.userName;
+                    oSelected.getBindingContext().delete("$auto").then(function () {
+                        MessageToast.show(oUser + " SuccessFully Deleted");
+                    },
+                        function (oError) {
+                            MessageToast.show("Deletion Error: ", oError);
+                        });
+                    this.getView().byId("idLoanTable").getBinding("items").refresh();
+
+                } else {
+                    MessageToast.show("Please Select a user to close the loan");
+                }
+            this.oDeleteCautionDailog.close()
             }
 
         });
