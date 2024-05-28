@@ -145,13 +145,15 @@
                     >
                         <blocks>
                             <m:Table
-                                id="idActiveLoanTable"
+                                id="idUserActiveLoanTable"
                                 mode="MultiSelect"
                                 alternateRowColors="true"
-                                items="{/ActiveLoans}"
+                                items="{/ActiveLoan}"
                             >
                                 <m:headerToolbar>
-                                    <m:OverflowToolbar id="idBooksTableHeaderUserLoans">
+                                    <m:OverflowToolbar
+                                        id="idBooksTableHeaderUserLoans"
+                                    >
                                         <m:Title
                                             id="idTableHeaderTitleUserLoans"
                                             text="Active Borrows"
@@ -246,10 +248,89 @@
                         titleUppercase="false"
                     >
                         <blocks>
-                            <core:Fragment
-                                type="XML"
-                                fragmentName="com.app.centrallibrary.fragments.booksTable"
-                            />
+                            <m:Table
+                                id="idBooksTable"
+                                mode="MultiSelect"
+                                alternateRowColors="true"
+                                items="{path:'/Books',parameters:{ 
+                    $count:true,
+                    $$updateGroupId:'booksGroup'     
+                     }
+                }"
+                            >
+                                <m:headerToolbar>
+                                    <m:OverflowToolbar id="idBooksTableHeader">
+                                        <!-- text="Availble Stock :{/Books/$count} Books" -->
+
+                                        <m:Title
+                                            id="idTableHeaderTitle"
+                                            text="Availble Stock"
+                                        />
+                                        <m:ToolbarSpacer
+                                            id="idTableHeaderSpacer"
+                                        />
+                                        <m:Button
+                                            id="idBtnEdit"
+                                            text="New Book"
+                                            icon="sap-icon://add"
+                                            type="Emphasized"
+                                            press="onBorrowNewBookPress"
+                                            tooltip="Click to Borrow"
+                                        /> 
+                                    </m:OverflowToolbar>
+                                </m:headerToolbar>
+                                <m:columns>
+                                    <m:Column id="idAuthorCol">
+                                        <m:Title
+                                            id="idAuthorColHead"
+                                            text="Author"
+                                        />
+                                    </m:Column>
+                                    <m:Column id="idbookNameCol">
+                                        <m:Title
+                                            id="idbookNameColHead"
+                                            text="Book Title"
+                                        />
+                                    </m:Column>
+                                    <m:Column id="idStockCol">
+                                        <m:Title
+                                            id="idStockColHead"
+                                            text="Stock"
+                                        />
+                                    </m:Column>
+                                    <m:Column id="idISBNCol">
+                                        <m:Title
+                                            id="idISBNColHead"
+                                            text="ISBN Number"
+                                        />
+                                    </m:Column>
+                                </m:columns>
+                                <m:items>
+                                    <m:ColumnListItem
+                                        id="idBooksTableColListItem"
+                                        type="Navigation"
+                                    >
+                                        <m:cells>
+                                            <m:Text
+                                                id="AuthorColValueId"
+                                                text="{authorName}"
+                                            />
+                                            <m:Text
+                                                id="idBookNameColValue"
+                                                text="{title}"
+                                            />
+                                            <m:Text
+                                                id="idStockColValue"
+                                                text="{quantity}"
+                                            />
+                                            <m:Text
+                                                id="idISBNColValue"
+                                                text="{ISBN}"
+                                            />
+                                        </m:cells>
+                                    </m:ColumnListItem>
+                                </m:items>
+                            </m:Table>
                         </blocks>
                     </ObjectPageSubSection>
                 </subSections>

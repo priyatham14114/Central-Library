@@ -2,18 +2,19 @@ namespace my.bookshop;
 
 using {cuid} from '@sap/cds/common';
 
+entity AdminLogin : cuid {
+  name          : String;
+  adminid       : String;
+  adminpassword : String;
+}
+
 entity Books : cuid {
   authorName : String;
   title      : String;
   ISBN       : String;
   quantity   : Integer;
-}
-
-entity AdminLogin : cuid {
-  name          : String;
-  adminid       : String;
-  adminpassword : String;
-// ActiveloanData : Association to Activeloans
+  users      : Composition of many UserLogin
+                 on users.books = $self;
 
 }
 
@@ -21,17 +22,25 @@ entity UserLogin : cuid {
   userName     : String;
   userid       : String;
   userpassword : String;
-// activeloans  : Association to many Activeloans on activeloans.Borrower_userid=$self;
+  loans        : Composition of many Activeloans
+                   on loans.user = $self;
+  books        : Association to Books
 }
 
 entity Activeloans : cuid {
-  Borrower_userid : Association to UserLogin;
-  Borrower_Name   : Association to UserLogin;
-  BookName        : Association to Books;
-  DueDate         : Date;
+  user : Association to UserLogin;
+  dueOn:Date;
+
 }
 
-// last change here 
+entity MyActiveloans : cuid {
+  bookName  : String;
+  BookTitle : String;
+  isbn      : String;
+  myDueDate : Date;
+}
+
+// last change here
 // make user is associated to many active loans change the relation
 
 

@@ -2,13 +2,15 @@ sap.ui.define([
     "./baseController",
     // "sap/ui/core/mvc/Controller",
     "sap/ui/core/Fragment",
-    "sap/m/MessageToast"
+    "sap/m/MessageToast",
+    "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator"
 
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, Fragment, MessageToast) {
+    function (Controller, Fragment, MessageToast,Filter,FilterOperator) {
         "use strict";
 
         return Controller.extend("com.app.centrallibrary.controller.loginView", {
@@ -43,26 +45,62 @@ sap.ui.define([
 
                 }
             },
+            // onUserLoginPress: function () {
+            //     debugger
+            //     var oView = this.getView(),
+            //         userId = oView.byId("idUserIDInput").getValue(),
+            //         Password = oView.byId("idPasswordInput").getValue()
+            //         // &amp;
+            //             const oRouter = this.getOwnerComponent().getRouter();
+            //         oRouter.navTo("RouteAdminView")
+            //     // if (userId === "subhash@sap.com" && Password === "1234") {
+            //     //     const oRouter = this.getOwnerComponent().getRouter();
+            //     //     oRouter.navTo("RouteAdminView")
+            //     //     var userId = oView.byId("idUserIDInput").setValue(""),
+            //     //         Password = oView.byId("idPasswordInput").setValue("")
+            //     // }
+            //     // else {
+            //     //     MessageToast.show("Invalid Credentials");
+
+            //     // }
+
+            // },
             onUserLoginPress: function () {
-                debugger
-                var oView = this.getView(),
-                    userId = oView.byId("idUserIDInput").getValue(),
-                    Password = oView.byId("idPasswordInput").getValue()
-                    // &amp;
-                        const oRouter = this.getOwnerComponent().getRouter();
-                    oRouter.navTo("RouteUserView")
-                // if (userId === "subhash@sap.com" && Password === "1234") {
-                //     const oRouter = this.getOwnerComponent().getRouter();
-                //     oRouter.navTo("RouteAdminView")
-                //     var userId = oView.byId("idUserIDInput").setValue(""),
-                //         Password = oView.byId("idPasswordInput").setValue("")
-                // }
-                // else {
-                //     MessageToast.show("Invalid Credentials");
-
-                // }
-
-            },
+                var oView = this.getView();
+            
+                var sUsername = oView.byId("idUserIDInput").getValue();  
+                var sPassword = oView.byId("idPasswordInput").getValue();
+            
+                if (!sUsername || !sPassword) {
+                    MessageToast.show("please enter required Credentials");
+                    return;
+                }
+            
+                var oModel = this.getView().getModel();
+                var oBinding = oModel.bindList("/UserLogin");
+            
+                oBinding.filter([
+                    new Filter("userid", FilterOperator.EQ, sUsername),
+                    new Filter("userpassword", FilterOperator.EQ, sPassword)
+                ]);
+            
+                oBinding.requestContexts().then(function (aContexts) {  //requestContexts is called to get the contexts (matching records) from the backend.
+                    if (aContexts.length > 0) {
+                        var userId = aContexts[0].getObject().ID;
+            
+                        MessageToast.show("Login Successful");
+            
+                        var oRouter = this.getOwnerComponent().getRouter();
+                        oRouter.navTo("RouteUserView", { ID: userId });
+            
+                    } else {
+                        MessageToast.show("Invalid username or password.");
+                    }
+                }.bind(this)).catch(function () {
+                    MessageToast.show("An error occurred during login.");
+                });
+            }
+            
 
         });
     });

@@ -1,8 +1,11 @@
 sap.ui.define(
     [
-        "sap/ui/core/mvc/Controller"
+        "sap/ui/core/mvc/Controller",
+        "sap/m/MessageToast",
+        "sap/ui/model/json/JSONModel"
+
     ],
-    function (Controller) {
+    function (Controller, MessageToast, JSONModel) {
         "use strict";
 
         /**
@@ -10,13 +13,47 @@ sap.ui.define(
        */
         return Controller.extend("com.app.centrallibrary.controller.userView", {
             onInit: function () {
+                const newBorrowModel = new JSONModel({
+                    authorName      : "",
+                    title           : "",
+                    ISBN            : "",
+                    DueDate         : ""
+                });
+
             },
-            // onBorrowNewBookPress: async function () {
-            //     if (!this.oNewBookBorrowDailog) {
-            //         this.oNewBookBorrowDailog = await this.loadFragment("booksTable")
-            //     }
-            //     this.oNewBookBorrowDailog.open()
-            // }
+            onBorrowNewBookPress: async function () {
+                debugger
+                var oSelected = this.byId("idBooksTable").getSelectedItem();
+                if (oSelected) {
+                    // var oBook = oSelected.getBindingContext().getObject().ID;
+                    var oAuthorName = oSelected.getBindingContext().getObject().authorName
+                    var oBookname = oSelected.getBindingContext().getObject().title
+                    var oStock = oSelected.getBindingContext().getObject().quantity
+                    var oISBN = oSelected.getBindingContext().getObject().ISBN
+
+                    const newBorrowModel = new JSONModel({
+                        authorName      : oAuthorName,
+                        title           : oBookname,
+                        ISBN            : oISBN,
+                        DueDate         : "2024-2-3"
+                    });
+                    this.getView().setModel(newBorrowModel, "newBorrowModel");
+                    var oContext = this.getView().byId("idUserActiveLoanTable").getBinding("items")
+                    var oNewBook = this.getView().getModel("newBorrowModel").getData();
+                    oContext.create(oNewBook, {
+                        sucess: function () {
+                            MessageToast.show("Book created successfully");
+                        },
+                        error: function () {
+                            MessageToast.show("Error creating book");
+                        }
+                    });
+                }
+                else {
+                    MessageToast.show("Select a Book to Borrow")
+                }
+
+            },
         });
     }
 );
