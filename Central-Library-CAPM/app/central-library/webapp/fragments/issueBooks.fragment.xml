@@ -1,0 +1,188 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:form="sap.ui.layout.form"
+>
+    <Dialog
+        id="idIssueBooksDailog"
+        resizable="true"
+        draggable="true"
+        title="Issue Books"
+    >
+    <content>
+            <form:SimpleForm
+                id="idIssueBookFormToIssue"
+                editable="true"
+                layout="ResponsiveGridLayout"
+                labelSpanXL="3"
+                labelSpanL="3"
+                labelSpanM="3"
+                labelSpanS="12"
+                adjustLabelSpan="false"
+                emptySpanXL="4"
+                emptySpanL="4"
+                emptySpanM="4"
+                emptySpanS="0"
+                columnsXL="1"
+                columnsL="1"
+                columnsM="1"
+                singleContainerFullSize="false"
+            >
+                <Label
+                    id="idIssueBookUsername"
+                    text="User Name"
+                />
+                <Input
+                    id="idIssueBookUsernameValue"
+                    value="{}"
+                />
+                <Label
+                    id="idIssueBookUseerID"
+                    text="User ID"
+                />
+                <Input
+                    id="idIssueBookUseerIDInput"
+                    value="{}"
+                />
+                <Label
+                    id="idIssueBookBookTitle"
+                    text="Title"
+                />
+                <Input
+                    id="idIssueBookBookTitleInput"
+                    value="{}"
+                />
+                <Label
+                    id="idIssueBookBookISBN"
+                    text="ISBN"
+                />
+                <Input
+                    id="idbooks_ISBNInput"
+                    value="{}"
+                />
+                <Label
+                    id="idIssueBookBookDueDate"
+                    text="Due Date"
+                />
+                <Input
+                    id="idIssueBookBookDueDateInput"
+                    value="{}"
+                />
+            </form:SimpleForm>
+        </content>
+        <HBox
+            id="idHboxCreate"
+            class="buttonsHbox"
+        >
+            <Button
+                class="buttons"
+                id="idIssueBookButtonConfirm"
+                text="Issue"
+                press="onIssueButtonPress"
+                type="Success"
+            />
+            <Button
+                class="buttons"
+                id="idIssueBookCancelButton"
+                text="Cancel"
+                press="onCloseIssueBookButton"
+                type="Negative"
+            />
+        </HBox>
+
+
+
+        <!-- <content>
+            <Table
+                id="idIssueBooksTable"
+                inset="false"
+                items=""
+                mode="MultiSelect"
+                multiSelectMode="SelectAll"
+            >
+                <headerToolbar>
+                    <Toolbar id="idIssueBooksToolBar">
+                        <Title
+                            id="idIssueBooksTableHeader"
+                            text="All Loans"
+                        />
+                        <ToolbarSpacer id="idSpacer" />
+                        <Button
+                            id="idIssueBooksAddButton"
+                            text="Add"
+                            press="onAddNewLoanPress"
+                        />
+                        <Button
+                            id="idIssueBooksCloseBTN"
+                            text="close"
+                            press="onCloseActiveLoans"
+                        />
+                    </Toolbar>
+                </headerToolbar>
+                <columns>
+                    <Column id="idIssueBooksTablecol1">
+                        <Text
+                            id="idUserName"
+                            text="Name"
+                        />
+                    </Column>
+                    <Column id="idIssueBooksTablecol2">
+                        <Text
+                            id="idColUserID"
+                            text="User ID"
+                        />
+                    </Column>
+                    <Column id="idIssueBooksTablecol3">
+                        <Text
+                            id="idBookName"
+                            text="BookName"
+                        />
+                    </Column>
+                    <Column id="idIssueBooksTablecol4">
+                        <Text
+                            id="idDueDate"
+                            text="Due Date"
+                        />
+                    </Column>
+                    <Column id="idIssueBooksTablecol5">
+                        <Text
+                            id="idClearLoanBTN"
+                            text="Clear Loan"
+                        />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem id="idIssueBooksTableColListItems">
+                        <cells>
+                            <Text
+                                id="idIssueBooksTableNameValue"
+                                text="{}"
+                            />
+                            <Text
+                                id="idIssueBooksTableUserIdValue"
+                                text="{}"
+                            />
+                            <Text
+                                id="idIssueBooksBookNameValue"
+                                text="{}"
+                            />
+                            <Text
+                                id="idIssueBooksTableDueDateValue"
+                                text="{}"
+                            />
+                            <Button
+                                id="idIssueBookButton"
+                                icon="sap-icon://add"
+                                tooltip="Issue Book"
+                                text="Issue Books"
+                                type="Negative"
+                                press="onConfirmIssueBook"
+                            />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content> -->
+    </Dialog>
+    
+</core:FragmentDefinition>

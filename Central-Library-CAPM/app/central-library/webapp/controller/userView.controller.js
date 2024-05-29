@@ -14,12 +14,22 @@ sap.ui.define(
         return Controller.extend("com.app.centrallibrary.controller.userView", {
             onInit: function () {
                 const newBorrowModel = new JSONModel({
-                    authorName      : "",
-                    title           : "",
-                    ISBN            : "",
-                    DueDate         : ""
+                    authorName: "",
+                    title: "",
+                    ISBN: "",
+                    DueDate: ""
                 });
-
+                const oRouter = this.getOwnerComponent().getRouter();
+                oRouter.attachRoutePatternMatched(this.onCurrentUserDetails, this);
+            },
+            onCurrentUserDetails: function (oEvent) {
+                const { userId } = oEvent.getParameter("arguments");
+                this.ID = userId;
+                const sRouterName = oEvent.getParameter("name");
+                const oForm = this.getView().byId("idUserDataPage");
+                oForm.bindElement(`/UserLogin(${userId})`, {
+                    expand: ''
+                });
             },
             onBorrowNewBookPress: async function () {
                 debugger
@@ -28,14 +38,14 @@ sap.ui.define(
                     // var oBook = oSelected.getBindingContext().getObject().ID;
                     var oAuthorName = oSelected.getBindingContext().getObject().authorName
                     var oBookname = oSelected.getBindingContext().getObject().title
-                    var oStock = oSelected.getBindingContext().getObject().quantity
+                    // var oStock = oSelected.getBindingContext().getObject().quantity
                     var oISBN = oSelected.getBindingContext().getObject().ISBN
 
                     const newBorrowModel = new JSONModel({
-                        authorName      : oAuthorName,
-                        title           : oBookname,
-                        ISBN            : oISBN,
-                        DueDate         : "2024-2-3"
+                        authorName: oAuthorName,
+                        title: oBookname,
+                        ISBN: oISBN,
+                        DueDate: "2024-2-3"
                     });
                     this.getView().setModel(newBorrowModel, "newBorrowModel");
                     var oContext = this.getView().byId("idUserActiveLoanTable").getBinding("items")

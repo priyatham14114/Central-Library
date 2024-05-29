@@ -22,6 +22,7 @@ sap.ui.define([
                     authorName: "",
                     title: "",
                     quantity: "",
+                    availableQuantity:"",
                     ISBN: "",
                 });
                 const newLoanModel = new JSONModel({
@@ -60,6 +61,20 @@ sap.ui.define([
 
                 });
                 //  MultiInputs End
+                // route to specific ui
+                const oRouter = this.getOwnerComponent().getRouter();
+                oRouter.attachRoutePatternMatched(this.onCurrentUserDetails, this);
+
+            },
+            onCurrentUserDetails: function (oEvent) {
+                const { userId } = oEvent.getParameter("arguments");
+                this.ID = userId;
+                const sRouterName = oEvent.getParameter("name");
+                const oForm = this.getView().byId("idAdminDataPage");
+
+                oForm.bindElement(`/UserLogin(${userId})`, {
+                    expand: ''
+                });
             },
             onFilterClick: function () {
                 debugger
@@ -95,31 +110,6 @@ sap.ui.define([
                     sBookName = oAdminView.byId("idTitleInputValue").destroyTokens();
             },
 
-            // onUpdateBook: function () {
-            //     debugger
-            //     let oSucess = function () {
-            //         MessageToast.show("Changes Updated")
-            //     }.bind(this)
-            //     let oError = function (Error) {
-            //         MessageBox.error(Error.message)
-            //     }.bind(this)
-            //     const oView = this.getView(),
-            //         oAuthorName = oView.byId("idAuthorName").getValue(),
-            //         oBookname = oView.byId("idbookNameInput").getValue(),
-            //         oStock = oView.byId("idStockInput").getValue(),
-            //         oISBN = oView.byId("idbooks_ISBNInput").getValue();
-            //     const newBookModel = new JSONModel({
-            //         authorName: oAuthorName,
-            //         title: oBookname,
-            //         quantity: oStock,
-            //         ISBN: oISBN,
-            //     });
-            //     this.getView().setModel(newBookModel, "newBookModel");
-            //     this.getView().getModel().submitBatch("booksGroup").then(oSucess, oError)
-            //     this.getView().byId("idBooksTable").getBinding("items").refresh();
-            //     this.oEditBooksPop.close()
-
-            // },
             onUpdateBook: function () {
                 debugger
                 const oModel = this.getView().getModel()
@@ -172,6 +162,7 @@ sap.ui.define([
                         authorName: "",
                         title: "",
                         quantity: "",
+                        availableQuantity:"",
                         ISBN: "",
                     });
                     this.getView().setModel(newBookModel, "newBookModel");
@@ -194,12 +185,14 @@ sap.ui.define([
                     var oAuthorName = oSelected.getBindingContext().getObject().authorName
                     var oBookname = oSelected.getBindingContext().getObject().title
                     var oStock = oSelected.getBindingContext().getObject().quantity
+                    var oavailableStock  = oSelected.getBindingContext().getObject().availableQuantity
                     var oISBN = oSelected.getBindingContext().getObject().ISBN
 
                     const newBookModel = new JSONModel({
                         authorName: oAuthorName,
                         title: oBookname,
                         quantity: oStock,
+                        availableQuantity:oavailableStock,
                         ISBN: oISBN,
                     });
                     this.getView().setModel(newBookModel, "newBookModel");
@@ -266,6 +259,9 @@ sap.ui.define([
                 debugger
                 if (!this.oActiveLoanPopUp) {
                     this.oActiveLoanPopUp = await this.loadFragment("ActiveLoans")
+                    this.oNewLoanDailog = await this.loadFragment("loanCreate")
+                    this.oReservationsDialog = await this.loadFragment("Reservations")
+
                 }
                 this.oActiveLoanPopUp.open();
             },
@@ -277,10 +273,30 @@ sap.ui.define([
                 }
 
             },
+            onReservationsClick: async function(){
+                debugger
+                if(!this.oReservationsDialog){
+                    this.oReservationsDialog = await this.loadFragment("Reservations")
+                    // this.oActiveLoanPopUp = await this.loadFragment("ActiveLoans")
+                    // this.oNewLoanDailog = await this.loadFragment("loanCreate")
+
+
+                }
+                this.oReservationsDialog.open()
+            },
+            onReservationsClose: function () {
+                if (this.oReservationsDialog.isOpen()) {
+                    this.oReservationsDialog.close();
+                }
+            },
             onAddNewLoanPress: async function () {
                 debugger
                 if (!this.oNewLoanDailog) {
+                    this.oActiveLoanPopUp = await this.loadFragment("ActiveLoans")
                     this.oNewLoanDailog = await this.loadFragment("loanCreate")
+                    this.oReservationsDialog = await this.loadFragment("Reservations")
+
+
                 }
                 this.oNewLoanDailog.open()
             },
@@ -290,6 +306,7 @@ sap.ui.define([
                 }
             },
             onSaveNewLoan: function () {
+                debugger
                 var oContext = this.getView().byId("idLoanTable").getBinding("items")
                 var oNewLoan = this.getView().getModel("newLoanModel").getData();
                 oContext.create(oNewLoan, {
@@ -301,6 +318,10 @@ sap.ui.define([
                     }
                 });
                 this.oNewLoanDailog.close()
+                this.oActiveLoanPopUp.close()
+                this.getView().getModel("newLoanModel").setData();
+                
+
 
             },
             onClearLoan: async function () {
@@ -332,7 +353,7 @@ sap.ui.define([
                 } else {
                     MessageToast.show("Please Select a user to close the loan");
                 }
-            this.oDeleteCautionDailog.close()
+                this.oDeleteCautionDailog.close()
             }
 
         });

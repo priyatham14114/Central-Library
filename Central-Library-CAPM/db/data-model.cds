@@ -2,19 +2,20 @@ namespace my.bookshop;
 
 using {cuid} from '@sap/cds/common';
 
-entity AdminLogin : cuid {
-  name          : String;
-  adminid       : String;
-  adminpassword : String;
-}
+// entity AdminLogin : cuid {
+//   name          : String;
+//   adminid       : String;
+//   adminpassword : String;
+// }
 
 entity Books : cuid {
-  authorName : String;
-  title      : String;
-  ISBN       : String;
-  quantity   : Integer;
-  users      : Composition of many UserLogin
-                 on users.books = $self;
+  authorName        : String;
+  title             : String;
+  ISBN              : String;
+  quantity          : String;
+  availableQuantity : String;
+  users             : Composition of many UserLogin
+                        on users.books = $self;
 
 }
 
@@ -24,12 +25,14 @@ entity UserLogin : cuid {
   userpassword : String;
   loans        : Composition of many Activeloans
                    on loans.user = $self;
-  books        : Association to Books
+  books        : Association to Books;
+  typeOfUser   : String;
+  photo        : LargeString;
 }
 
 entity Activeloans : cuid {
-  user : Association to UserLogin;
-  dueOn:Date;
+  user  : Association to UserLogin;
+  dueOn : Date;
 
 }
 

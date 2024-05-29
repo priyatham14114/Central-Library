@@ -122,14 +122,14 @@
         },
         {
           "name": "RouteAdminView",
-          "pattern": "adminPage",
+          "pattern": "adminPage/{userId}",
           "target": [
             "TargetadminView"
           ]
         },
         {
           "name": "RouteUserView",
-          "pattern": "userPage",
+          "pattern": "userPage/{userId}",
           "target": [
             "TargetUserView"
           ]

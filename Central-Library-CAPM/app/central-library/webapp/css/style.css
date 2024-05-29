@@ -24,9 +24,12 @@
 .buttons {
     margin-left: 10px;
 }
-
+.issueBookBTN{
+    margin-top: 10px;
+}
 .loanButton {
     margin-top: 10px;
+    margin-left: 10px;
     
 }
 .buttonsHbox{
