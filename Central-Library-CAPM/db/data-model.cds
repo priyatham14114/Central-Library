@@ -36,12 +36,12 @@ entity Activeloans : cuid {
 
 }
 
-entity MyActiveloans : cuid {
-  bookName  : String;
-  BookTitle : String;
-  isbn      : String;
-  myDueDate : Date;
-}
+// entity MyActiveloans : cuid {
+//   bookName  : String;
+//   BookTitle : String;
+//   isbn      : String;
+//   myDueDate : Date;
+// }
 
 // last change here
 // make user is associated to many active loans change the relation

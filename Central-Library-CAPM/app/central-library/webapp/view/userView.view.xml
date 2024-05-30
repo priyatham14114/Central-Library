@@ -43,7 +43,7 @@
                     >
                         <m:Avatar
                             id="idAvatar"
-                            src=""
+                            src="{photo}"
                             class="sapUiTinyMarginEnd"
                         />
                         <m:Title
@@ -60,8 +60,14 @@
                         text="Welcomes You"
                     />
                 </expandedContent>
-
-                <actions />
+                <actions>
+                    <m:Button
+                        id="idLogOutbutton"
+                        type="Ghost"
+                        text="Logout"
+                        press="onLogoutPress"
+                    />
+                </actions>
             </ObjectPageDynamicHeaderTitle>
         </headerTitle>
 
@@ -74,7 +80,7 @@
                 <m:Avatar
                     id="idAvatar2"
                     class="sapUiSmallMarginEnd"
-                    src=""
+                    src="{photo}"
                     displaySize="L"
                 />
 
@@ -140,12 +146,11 @@
                         titleUppercase="false"
                     >
                         <blocks>
-                        <!-- items="{/ActiveLoan}" -->
+                            <!-- items="{/ActiveLoan}" -->
                             <m:Table
                                 id="idUserActiveLoanTable"
                                 mode="MultiSelect"
                                 alternateRowColors="true"
-                                
                             >
                                 <m:headerToolbar>
                                     <m:OverflowToolbar
@@ -218,11 +223,11 @@
                                             />
                                             <m:Text
                                                 id="idISBNColValueUserLoans"
-                                                text="H4780K743"
+                                                text="ISBN1234"
                                             />
                                             <m:Text
                                                 id="idDueDateValueUserLoans"
-                                                text="2024-11-11"
+                                                text="2024-7-7"
                                             />
                                         </m:cells>
                                     </m:ColumnListItem>
@@ -241,7 +246,7 @@
                 <subSections>
                     <ObjectPageSubSection
                         id="idBorrowBooksSubSection"
-                        title="Borrow Books"
+                        title="All Books"
                         titleUppercase="false"
                     >
                         <blocks>
@@ -272,8 +277,8 @@
                                             icon="sap-icon://add"
                                             type="Emphasized"
                                             press="onReserveBookPress"
-                                            tooltip="Click to Borrow"
-                                        /> 
+                                            tooltip="Click to Reserve"
+                                        />
                                     </m:OverflowToolbar>
                                 </m:headerToolbar>
                                 <m:columns>
@@ -293,6 +298,12 @@
                                         <m:Title
                                             id="idStockColHead"
                                             text="Stock"
+                                        />
+                                    </m:Column>
+                                    <m:Column id="idavailableQuantityCol">
+                                        <m:Title
+                                            id="idavailableQuantityColHead"
+                                            text="Available Stock"
                                         />
                                     </m:Column>
                                     <m:Column id="idISBNCol">
@@ -319,6 +330,10 @@
                                             <m:Text
                                                 id="idStockColValue"
                                                 text="{quantity}"
+                                            />
+                                            <m:Text
+                                                id="idavailableQuantityColValue"
+                                                text="{availableQuantity}"
                                             />
                                             <m:Text
                                                 id="idISBNColValue"

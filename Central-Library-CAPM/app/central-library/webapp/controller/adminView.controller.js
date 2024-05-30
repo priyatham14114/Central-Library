@@ -22,7 +22,7 @@ sap.ui.define([
                     authorName: "",
                     title: "",
                     quantity: "",
-                    availableQuantity:"",
+                    availableQuantity: "",
                     ISBN: "",
                 });
                 const newLoanModel = new JSONModel({
@@ -76,6 +76,12 @@ sap.ui.define([
                     expand: ''
                 });
             },
+            onLogoutPress: function () {
+                const oRouter = this.getOwnerComponent().getRouter()
+                oRouter.navTo("RouteloginView")
+
+            },
+
             onFilterClick: function () {
                 debugger
                 const oAdminView = this.getView(),
@@ -162,7 +168,7 @@ sap.ui.define([
                         authorName: "",
                         title: "",
                         quantity: "",
-                        availableQuantity:"",
+                        availableQuantity: "",
                         ISBN: "",
                     });
                     this.getView().setModel(newBookModel, "newBookModel");
@@ -185,20 +191,19 @@ sap.ui.define([
                     var oAuthorName = oSelected.getBindingContext().getObject().authorName
                     var oBookname = oSelected.getBindingContext().getObject().title
                     var oStock = oSelected.getBindingContext().getObject().quantity
-                    var oavailableStock  = oSelected.getBindingContext().getObject().availableQuantity
+                    var oavailableStock = oSelected.getBindingContext().getObject().availableQuantity
                     var oISBN = oSelected.getBindingContext().getObject().ISBN
 
                     const newBookModel = new JSONModel({
                         authorName: oAuthorName,
                         title: oBookname,
                         quantity: oStock,
-                        availableQuantity:oavailableStock,
+                        availableQuantity: oavailableStock,
                         ISBN: oISBN,
                     });
                     this.getView().setModel(newBookModel, "newBookModel");
                     // this.oEditBooksPop.open();
                     this.oCreateBookPop.open()
-
                 }
                 else {
                     MessageToast.show("Select an Item to Edit")
@@ -273,9 +278,9 @@ sap.ui.define([
                 }
 
             },
-            onReservationsClick: async function(){
+            onReservationsClick: async function () {
                 debugger
-                if(!this.oReservationsDialog){
+                if (!this.oReservationsDialog) {
                     this.oReservationsDialog = await this.loadFragment("Reservations")
                     // this.oActiveLoanPopUp = await this.loadFragment("ActiveLoans")
                     // this.oNewLoanDailog = await this.loadFragment("loanCreate")
@@ -320,7 +325,7 @@ sap.ui.define([
                 this.oNewLoanDailog.close()
                 this.oActiveLoanPopUp.close()
                 this.getView().getModel("newLoanModel").setData();
-                
+
 
 
             },

@@ -15,6 +15,7 @@ sap.ui.define([
 
         return Controller.extend("com.app.centrallibrary.controller.loginView", {
             onInit: function () {
+                debugger
                 // const oPage = this.getView().byId("idLoginObjectPage");
                 // oPage.attachBrowserEvent("dblclick", this.onDoubleClick.bind(this));
 
@@ -39,6 +40,7 @@ sap.ui.define([
                 this.oLoginDailogPopUp.open();
 
             },
+           
             onCloseLoginDailog: function () {
                 if (this.oLoginDailogPopUp.isOpen()) {
                     this.oLoginDailogPopUp.close()
@@ -94,8 +96,8 @@ sap.ui.define([
                             var oRouter = this.getOwnerComponent().getRouter();
                             oRouter.navTo("RouteAdminView", { userId: ID });
                             var oView = this.getView()
-                                 oView.byId("idUserIDInput").setValue("");
-                                 oView.byId("idPasswordInput").setValue("");
+                            oView.byId("idUserIDInput").setValue("");
+                            oView.byId("idPasswordInput").setValue("");
                         }
                         else {
                             MessageToast.show("Login Successful");
@@ -112,6 +114,18 @@ sap.ui.define([
                 }.bind(this)).catch(function () {
                     MessageToast.show("An error occurred during login.");
                 });
+            },
+            onSignUpPress: async function () {
+                if (!this.oSignUpDialog) {
+                    this.oSignUpDialog = await this.loadFragment("Signup")
+                }
+                this.oSignUpDialog.open()
+            },
+            onSignUpCancel: function () {
+                if (this.oSignUpDialog.isOpen()) {
+                    this.oSignUpDialog.close()
+                }
+
             }
 
 

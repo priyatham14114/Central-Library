@@ -17,7 +17,7 @@ sap.ui.define(
                     authorName: "",
                     title: "",
                     ISBN: "",
-                    DueDate: ""
+                    dueOn: ""
                 });
                 const oRouter = this.getOwnerComponent().getRouter();
                 oRouter.attachRoutePatternMatched(this.onCurrentUserDetails, this);
@@ -31,38 +31,25 @@ sap.ui.define(
                     expand: ''
                 });
             },
-            onBorrowNewBookPress: async function () {
+            onLogoutPress:function(){
+                debugger
+                const oRouter = this.getOwnerComponent().getRouter()
+                oRouter.navTo("RouteloginView")
+
+            },
+            onReserveBookPress: async function () {
                 debugger
                 var oSelected = this.byId("idBooksTable").getSelectedItem();
                 if (oSelected) {
-                    // var oBook = oSelected.getBindingContext().getObject().ID;
-                    var oAuthorName = oSelected.getBindingContext().getObject().authorName
-                    var oBookname = oSelected.getBindingContext().getObject().title
                     // var oStock = oSelected.getBindingContext().getObject().quantity
-                    var oISBN = oSelected.getBindingContext().getObject().ISBN
-
-                    const newBorrowModel = new JSONModel({
-                        authorName: oAuthorName,
-                        title: oBookname,
-                        ISBN: oISBN,
-                        DueDate: "2024-2-3"
-                    });
-                    this.getView().setModel(newBorrowModel, "newBorrowModel");
-                    var oContext = this.getView().byId("idUserActiveLoanTable").getBinding("items")
-                    var oNewBook = this.getView().getModel("newBorrowModel").getData();
-                    oContext.create(oNewBook, {
-                        sucess: function () {
-                            MessageToast.show("Book created successfully");
-                        },
-                        error: function () {
-                            MessageToast.show("Error creating book");
-                        }
-                    });
+                    var oAvailStock = oSelected.getBindingContext().getObject().availableQuantity
+                    if(oAvailStock === "0"){
+                        MessageToast.show("Reservation Sent to Admin")
+                    }
+                    else{
+                        MessageToast.show("Book is available you don't need to reserve")
+                    }
                 }
-                else {
-                    MessageToast.show("Select a Book to Borrow")
-                }
-
             },
         });
     }

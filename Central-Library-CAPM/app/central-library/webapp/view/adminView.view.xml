@@ -39,13 +39,18 @@
                         badgeTooltip="profile"
                         press="onProfilePress"
                     />
-                   <VBox id="idAdminNameInAdminpageVbox" > 
-                    <Text id="idAdminNameInAdminPage" text="Admin:{userName}" />
+                   <VBox id="idAdminNameInAdminpageVbox"  > 
+                    <Text id="idAdminNameInAdminPage" class="adminDataStyle" text="Admin:{userName}" />
                     <Link
                         class="profileCard"
                         id="idAdminUserID"
                         text="{userid}"
                     />
+                    <Button id="idLogOutbutton"
+                            type="Ghost"
+                            text="Logout"
+                            press="onLogoutPress"
+                      />
                     </VBox>
                 </f:actions>
             </f:DynamicPageTitle>
