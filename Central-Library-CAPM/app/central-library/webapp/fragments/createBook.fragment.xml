@@ -54,6 +54,16 @@
                 />
                 <Input
                     id="idStockInput"
+                    type="Number"
+                    value="{newBookModel>/quantity}"
+                />
+                <Label
+                    id="idavailableQuantityLabelCreate"
+                    text="Available Stock"
+                />
+                <Input
+                    id="idavailableQuantityInput"
+                    type="Number"
                     value="{newBookModel>/quantity}"
                 />
                 <Label

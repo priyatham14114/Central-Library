@@ -5,7 +5,7 @@
 >
     <!--  -->
     <Dialog
-        id="idNewLoanDialog"
+        id="idNewLoanDialog" 
         resizable="true"
         draggable="true"
         contentWidth="30%"

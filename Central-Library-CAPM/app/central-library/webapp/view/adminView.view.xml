@@ -15,7 +15,7 @@
         width="30%"
     />
     <f:DynamicPage
-        id="booksDataPage"
+        id="idAdminDataPage"
         headerExpanded="true"
     >
         <f:title>
@@ -39,11 +39,19 @@
                         badgeTooltip="profile"
                         press="onProfilePress"
                     />
+                   <VBox id="idAdminNameInAdminpageVbox"  > 
+                    <Text id="idAdminNameInAdminPage" class="adminDataStyle" text="Admin:{userName}" />
                     <Link
                         class="profileCard"
                         id="idAdminUserID"
-                        text="subhash@sap.com"
+                        text="{userid}"
                     />
+                    <Button id="idLogOutbutton"
+                            type="Ghost"
+                            text="Logout"
+                            press="onLogoutPress"
+                      />
+                    </VBox>
                 </f:actions>
             </f:DynamicPageTitle>
         </f:title>
@@ -117,11 +125,25 @@
                         />
                     </VBox>
                 </HBox>
+                <!-- onIssueBookBTNClick -->
+                <Button
+                    class="issueBookBTN"
+                    id="idIssueBooksBTN"
+                    text="Issue Books"
+                    press="onAddNewLoanPress"
+                    
+                />
                 <Button
                     class="loanButton"
                     id="idActiveLoansBTN"
                     text="Check Active Loans"
                     press="onActiveLoansClick"
+                />
+                <Button
+                    class="loanButton"
+                    id="idReservations"
+                    text="Reservations"
+                    press="onReservationsClick"
                 />
             </f:DynamicPageHeader>
         </f:header>
@@ -143,7 +165,7 @@
                 <!-- text="Availble Stock :{/Books/$count} Books" -->
 
                 <Title
-                    id="idTableHeaderTitle"
+                    id="idTableHeaderTitle123"
                     text="Availble Stock"
                 />
                 <ToolbarSpacer id="idTableHeaderSpacer" />
@@ -191,6 +213,12 @@
                     text="Stock"
                 />
             </Column>
+            <Column id="idavailableQuantityCol">
+                <Title
+                    id="idavailableQuantityColHead"
+                    text="Available Stock"
+                />
+            </Column>
             <Column id="idISBNCol">
                 <Title
                     id="idISBNColHead"
@@ -217,6 +245,10 @@
                         text="{quantity}"
                     />
                     <Text
+                        id="idavailableQuantityColValue"
+                        text="{availableQuantity}"
+                    />
+                    <Text
                         id="idISBNColValue"
                         text="{ISBN}"
                     />
@@ -224,8 +256,6 @@
             </ColumnListItem>
         </items>
     </Table>
-
-            
         </f:content>
     </f:DynamicPage>
 </mvc:View>

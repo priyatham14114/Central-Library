@@ -24,9 +24,12 @@
 .buttons {
     margin-left: 10px;
 }
-
+.issueBookBTN{
+    margin-top: 10px;
+}
 .loanButton {
     margin-top: 10px;
+    margin-left: 10px;
     
 }
 .buttonsHbox{
@@ -36,6 +39,9 @@
 }
 .buttons{
 margin-left: 10px;
+}
+.adminDataStyle{
+    margin-top: 20px;
 }
 /* .LoginPage{
     background-image: url("https://t3.ftcdn.net/jpg/07/29/27/48/240_F_729274803_3rb8xuW4m84gUFBQJd1jAwDQyehVs0RJ.jpg");

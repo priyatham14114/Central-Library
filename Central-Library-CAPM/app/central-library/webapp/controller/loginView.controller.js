@@ -10,11 +10,12 @@ sap.ui.define([
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, Fragment, MessageToast,Filter,FilterOperator) {
+    function (Controller, Fragment, MessageToast, Filter, FilterOperator) {
         "use strict";
 
         return Controller.extend("com.app.centrallibrary.controller.loginView", {
             onInit: function () {
+                debugger
                 // const oPage = this.getView().byId("idLoginObjectPage");
                 // oPage.attachBrowserEvent("dblclick", this.onDoubleClick.bind(this));
 
@@ -39,6 +40,7 @@ sap.ui.define([
                 this.oLoginDailogPopUp.open();
 
             },
+           
             onCloseLoginDailog: function () {
                 if (this.oLoginDailogPopUp.isOpen()) {
                     this.oLoginDailogPopUp.close()
@@ -67,40 +69,65 @@ sap.ui.define([
             // },
             onUserLoginPress: function () {
                 var oView = this.getView();
-            
-                var sUsername = oView.byId("idUserIDInput").getValue();  
+
+                var sUserID = oView.byId("idUserIDInput").getValue();
                 var sPassword = oView.byId("idPasswordInput").getValue();
-            
-                if (!sUsername || !sPassword) {
+
+                if (!sUserID || !sPassword) {
                     MessageToast.show("please enter required Credentials");
                     return;
                 }
-            
+
                 var oModel = this.getView().getModel();
                 var oBinding = oModel.bindList("/UserLogin");
-            
+
                 oBinding.filter([
-                    new Filter("userid", FilterOperator.EQ, sUsername),
+                    new Filter("userid", FilterOperator.EQ, sUserID),
                     new Filter("userpassword", FilterOperator.EQ, sPassword)
                 ]);
-            
+
                 oBinding.requestContexts().then(function (aContexts) {  //requestContexts is called to get the contexts (matching records) from the backend.
+                    debugger
                     if (aContexts.length > 0) {
-                        var userId = aContexts[0].getObject().ID;
-            
-                        MessageToast.show("Login Successful");
-            
-                        var oRouter = this.getOwnerComponent().getRouter();
-                        oRouter.navTo("RouteUserView", { ID: userId });
-            
+                        var ID = aContexts[0].getObject().ID;
+                        var userType = aContexts[0].getObject().typeOfUser;
+                        if (userType === "Admin") {
+                            MessageToast.show("Login Successful");
+                            var oRouter = this.getOwnerComponent().getRouter();
+                            oRouter.navTo("RouteAdminView", { userId: ID });
+                            var oView = this.getView()
+                            oView.byId("idUserIDInput").setValue("");
+                            oView.byId("idPasswordInput").setValue("");
+                        }
+                        else {
+                            MessageToast.show("Login Successful");
+                            var oRouter = this.getOwnerComponent().getRouter();
+                            oRouter.navTo("RouteUserView", { userId: ID });
+                            var oView = this.getView()
+                            oView.byId("idUserIDInput").setValue("");
+                            oView.byId("idPasswordInput").setValue("");
+                        }
+
                     } else {
                         MessageToast.show("Invalid username or password.");
                     }
                 }.bind(this)).catch(function () {
                     MessageToast.show("An error occurred during login.");
                 });
+            },
+            onSignUpPress: async function () {
+                if (!this.oSignUpDialog) {
+                    this.oSignUpDialog = await this.loadFragment("Signup")
+                }
+                this.oSignUpDialog.open()
+            },
+            onSignUpCancel: function () {
+                if (this.oSignUpDialog.isOpen()) {
+                    this.oSignUpDialog.close()
+                }
+
             }
-            
+
 
         });
     });

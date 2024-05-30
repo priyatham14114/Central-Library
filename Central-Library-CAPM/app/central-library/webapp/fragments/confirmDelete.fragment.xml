@@ -30,7 +30,7 @@
                 singleContainerFullSize="false"
             >
                 <VBox id="idVbox">
-                    <Label id="idDeleteCaution0" text="CAUTION : " />
+                    <Label id="idDeleteCaution" text="CAUTION : " />
                     <Label id="idDeleteCaution1" text="Are you sure you want to delete selected record ?" />
                     <Label id="idDeleteCaution2" text="Make sure the person returned all the books..!" />
                     <HBox

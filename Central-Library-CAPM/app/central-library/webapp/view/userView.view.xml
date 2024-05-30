@@ -17,7 +17,7 @@
         width="30%"
     />
     <ObjectPageLayout
-        id="ObjectPageLayout"
+        id="idUserDataPage"
         enableLazyLoading="true"
         beforeNavigate="onBeforeNavigate"
         useIconTabBar="true"
@@ -43,12 +43,12 @@
                     >
                         <m:Avatar
                             id="idAvatar"
-                            src=""
+                            src="{photo}"
                             class="sapUiTinyMarginEnd"
                         />
                         <m:Title
                             id="idUserName"
-                            text="Subhash"
+                            text="{userName}"
                             wrapping="true"
                         />
                     </m:FlexBox>
@@ -60,8 +60,14 @@
                         text="Welcomes You"
                     />
                 </expandedContent>
-
-                <actions />
+                <actions>
+                    <m:Button
+                        id="idLogOutbutton"
+                        type="Ghost"
+                        text="Logout"
+                        press="onLogoutPress"
+                    />
+                </actions>
             </ObjectPageDynamicHeaderTitle>
         </headerTitle>
 
@@ -74,7 +80,7 @@
                 <m:Avatar
                     id="idAvatar2"
                     class="sapUiSmallMarginEnd"
-                    src=""
+                    src="{photo}"
                     displaySize="L"
                 />
 
@@ -84,15 +90,11 @@
                 >
                     <m:Text
                         id="idTextUserName"
-                        text="Subhash"
-                    />
-                    <m:Link
-                        id="idLink1"
-                        text="+91 9876543210"
+                        text="{userName}"
                     />
                     <m:Link
                         id="idLink2"
-                        text="subhash@artihcus.com"
+                        text="{userid}"
                     />
                 </layout:VerticalLayout>
                 <layout:HorizontalLayout
@@ -116,7 +118,7 @@
                 >
                     <m:Label
                         id="idLabelForUserText"
-                        text="Hello! Subhash greetings from Central Library"
+                        text="Hello! {userName} greetings from Central Library"
                     />
                 </layout:VerticalLayout>
 
@@ -144,11 +146,11 @@
                         titleUppercase="false"
                     >
                         <blocks>
+                            <!-- items="{/ActiveLoan}" -->
                             <m:Table
                                 id="idUserActiveLoanTable"
                                 mode="MultiSelect"
                                 alternateRowColors="true"
-                                items="{/ActiveLoan}"
                             >
                                 <m:headerToolbar>
                                     <m:OverflowToolbar
@@ -161,22 +163,22 @@
                                         <m:ToolbarSpacer
                                             id="idTableHeaderSpacerUserLoans"
                                         />
-                                        <m:Button
+                                        <!-- <m:Button
                                             id="idBtnNewBook"
                                             text="New Book"
                                             icon="sap-icon://add"
                                             tooltip="Borrow New Book"
                                             type="Success"
                                             press="onBorrowNewBookPress"
-                                        />
-                                        <m:Button
+                                        /> -->
+                                        <!-- <m:Button
                                             id="idBtnReturn"
                                             press="onReturnBookPress"
                                             icon="sap-icon://delete"
                                             tooltip="Return Book"
                                             text="Return Book"
                                             type="Negative"
-                                        />
+                                        /> -->
                                     </m:OverflowToolbar>
                                 </m:headerToolbar>
                                 <m:columns>
@@ -213,19 +215,19 @@
                                         <m:cells>
                                             <m:Text
                                                 id="idBookNameColValueUserLoans"
-                                                text="{title}"
+                                                text="The Great Gatsby"
                                             />
                                             <m:Text
                                                 id="idAuthorColValueUserLoans"
-                                                text="{authorName}"
+                                                text="F. Scott Fitzgerald"
                                             />
                                             <m:Text
                                                 id="idISBNColValueUserLoans"
-                                                text="{ISBN}"
+                                                text="ISBN1234"
                                             />
                                             <m:Text
                                                 id="idDueDateValueUserLoans"
-                                                text="{DueDate}"
+                                                text="2024-7-7"
                                             />
                                         </m:cells>
                                     </m:ColumnListItem>
@@ -244,7 +246,7 @@
                 <subSections>
                     <ObjectPageSubSection
                         id="idBorrowBooksSubSection"
-                        title="Borrow Books"
+                        title="All Books"
                         titleUppercase="false"
                     >
                         <blocks>
@@ -271,12 +273,12 @@
                                         />
                                         <m:Button
                                             id="idBtnEdit"
-                                            text="New Book"
+                                            text="Reserve Book"
                                             icon="sap-icon://add"
                                             type="Emphasized"
-                                            press="onBorrowNewBookPress"
-                                            tooltip="Click to Borrow"
-                                        /> 
+                                            press="onReserveBookPress"
+                                            tooltip="Click to Reserve"
+                                        />
                                     </m:OverflowToolbar>
                                 </m:headerToolbar>
                                 <m:columns>
@@ -296,6 +298,12 @@
                                         <m:Title
                                             id="idStockColHead"
                                             text="Stock"
+                                        />
+                                    </m:Column>
+                                    <m:Column id="idavailableQuantityCol">
+                                        <m:Title
+                                            id="idavailableQuantityColHead"
+                                            text="Available Stock"
                                         />
                                     </m:Column>
                                     <m:Column id="idISBNCol">
@@ -322,6 +330,10 @@
                                             <m:Text
                                                 id="idStockColValue"
                                                 text="{quantity}"
+                                            />
+                                            <m:Text
+                                                id="idavailableQuantityColValue"
+                                                text="{availableQuantity}"
                                             />
                                             <m:Text
                                                 id="idISBNColValue"

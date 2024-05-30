@@ -15,14 +15,13 @@
             <Table
                 id="idLoanTable"
                 inset="false"
+                mode="SingleSelectMaster"
                 items="{/Activeloans}"
-                mode="MultiSelect"
-                multiSelectMode="SelectAll"
             >
                 <headerToolbar>
                     <Toolbar id="idToolBar">
                         <Title
-                            id="idTableHeader"
+                            id="_IDGenTitle1"
                             text="All Loans"
                         />
                         <ToolbarSpacer id="idSpacer" />

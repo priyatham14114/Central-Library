@@ -12,7 +12,6 @@
         id="ObjectPageLayout"
         showTitleInHeaderContent="true"
         upperCaseAnchorBar="true"
-        class="LoginPage"
     >
         <headerTitle>
             <ObjectPageDynamicHeaderTitle id="idObjectPageDynamicHeaderTitle">
@@ -39,7 +38,7 @@
                         press="onLoginPress"
                     />
                     <m:Button
-                        id="idSignUpButton"
+                        id="idSignUpButtonHome"
                         text="SignUp"
                         type="Emphasized"
                         tooltip="SignUp"
