@@ -52,7 +52,7 @@
                     </Column>
                     <Column id="idLoanTablecol3">
                         <Text
-                            id="idBookName"
+                            id="idBookNameActiveloans"
                             text="BookName"
                         />
                     </Column>

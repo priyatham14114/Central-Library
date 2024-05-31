@@ -16,6 +16,11 @@ sap.ui.define([
             this.getView().addDependent(oFragment);
             return oFragment
         },
+        createData:function(){
+
+
+        }
+
     })
 
 });

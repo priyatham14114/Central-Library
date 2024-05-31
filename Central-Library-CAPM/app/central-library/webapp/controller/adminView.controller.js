@@ -78,6 +78,7 @@ sap.ui.define([
             },
             onLogoutPress: function () {
                 const oRouter = this.getOwnerComponent().getRouter()
+                MessageToast.show("Successfully Logged Out")
                 oRouter.navTo("RouteloginView")
 
             },
@@ -118,7 +119,7 @@ sap.ui.define([
 
             onUpdateBook: function () {
                 debugger
-                const oModel = this.getView().getModel()
+                const oModel = this.getView().getModel().bindList("/Books")
                 var oEditBook = this.getView().getModel("newBookModel").getData();
                 // const oView = this.getView(),
                 //     oAuthorName = oView.byId("idAuthorName").getValue(),
@@ -143,7 +144,7 @@ sap.ui.define([
                 // });
                 var oContext = this.getView().byId("idBooksTable").getBinding("items")
                 var oNewBook = this.getView().getModel("newBookModel").getData();
-                oModel.update("Books", oNewBook, {
+                oModel.update(oNewBook, {
                     success: function () {
                         MessageToast.show("Book created successfully");
                     },
@@ -223,13 +224,14 @@ sap.ui.define([
 
             onCreateBook: function () {
                 debugger
-                // var oModel = this.getView().getModel(),
-                //     oBinding = oModel.bindList("/Books")
-                var oContext = this.getView().byId("idBooksTable").getBinding("items")
+                var oModel = this.getView().getModel(),
+                    oBinding = oModel.bindList("/Books")
+                // var oContext = this.getView().byId("idBooksTable").getBinding("items")
                 var oNewBook = this.getView().getModel("newBookModel").getData();
-                oContext.create(oNewBook, {
+                oBinding.create(oNewBook, {
                     success: function () {
                         MessageToast.show("Book created successfully");
+
                     },
                     error: function () {
                         MessageToast.show("Error creating book");
@@ -311,22 +313,43 @@ sap.ui.define([
                 }
             },
             onSaveNewLoan: function () {
-                debugger
-                var oContext = this.getView().byId("idLoanTable").getBinding("items")
-                var oNewLoan = this.getView().getModel("newLoanModel").getData();
-                oContext.create(oNewLoan, {
-                    success: function () {
-                        MessageToast.show("Book created successfully");
-                    },
-                    error: function () {
-                        MessageToast.show("Error creating book");
+                // last change here.....
+                try {
+                    debugger
+                    var oContext = this.getView().byId("idLoanTable").getBinding("items")
+                    var oNewLoan = this.getView().getModel("newLoanModel").getData()
+                    var sEnteredUserId = oNewLoan.user.userid
+                    var sEnteredUserName = oNewLoan.user.userName
+
+                    if (sEnteredUserId) {
+                        var oModel = this.getView().getModel();
+                        var oBinding = oModel.bindList("/UserLogin");
+
+                        oBinding.filter([
+                            new Filter("userid", FilterOperator.EQ, sEnteredUserId),
+                            new Filter("userName", FilterOperator.EQ, sEnteredUserName),
+
+                        ]);
+
+                        oBinding.requestContexts().then(function (aContexts) {  //requestContexts is called to get the contexts (matching records) from the backend.
+                            debugger
+                            if (aContexts.length > 0) {
+                                oContext.create(oNewLoan)
+                                MessageToast.show("Book Issued Successfully")
+                            } else {
+                                MessageToast.show("User data not matching with existing records")
+                            }
+                        })
+                        this.oNewLoanDailog.close()
+                        this.oActiveLoanPopUp.close()
+                        this.getView().getModel("newLoanModel").setData();
+                    } else {
+                        MessageToast.show("Enter correct user Data to Continue")
                     }
-                });
-                this.oNewLoanDailog.close()
-                this.oActiveLoanPopUp.close()
-                this.getView().getModel("newLoanModel").setData();
+                } catch (error) {
+                    MessageToast.show(error)
 
-
+                }
 
             },
             onClearLoan: async function () {

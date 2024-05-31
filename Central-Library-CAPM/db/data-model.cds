@@ -14,8 +14,8 @@ entity Books : cuid {
   ISBN              : String;
   quantity          : String;
   availableQuantity : String;
-  users             : Composition of many UserLogin
-                        on users.books = $self;
+  manyUsersloans    : Composition of many Activeloans
+                        on manyUsersloans.takenbooks = $self
 
 }
 
@@ -25,14 +25,15 @@ entity UserLogin : cuid {
   userpassword : String;
   loans        : Composition of many Activeloans
                    on loans.user = $self;
-  books        : Association to Books;
+  // books        : Association to Books;
   typeOfUser   : String;
   photo        : LargeString;
 }
 
 entity Activeloans : cuid {
-  user  : Association to UserLogin;
-  dueOn : Date;
+  user       : Association to UserLogin;
+  takenbooks : Association to Books;
+  dueOn      : Date;
 
 }
 

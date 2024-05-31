@@ -149,7 +149,7 @@
                             <!-- items="{/ActiveLoan}" -->
                             <m:Table
                                 id="idUserActiveLoanTable"
-                                mode="MultiSelect"
+                                mode="SingleSelectMaster"
                                 alternateRowColors="true"
                             >
                                 <m:headerToolbar>
@@ -163,22 +163,6 @@
                                         <m:ToolbarSpacer
                                             id="idTableHeaderSpacerUserLoans"
                                         />
-                                        <!-- <m:Button
-                                            id="idBtnNewBook"
-                                            text="New Book"
-                                            icon="sap-icon://add"
-                                            tooltip="Borrow New Book"
-                                            type="Success"
-                                            press="onBorrowNewBookPress"
-                                        /> -->
-                                        <!-- <m:Button
-                                            id="idBtnReturn"
-                                            press="onReturnBookPress"
-                                            icon="sap-icon://delete"
-                                            tooltip="Return Book"
-                                            text="Return Book"
-                                            type="Negative"
-                                        /> -->
                                     </m:OverflowToolbar>
                                 </m:headerToolbar>
                                 <m:columns>
@@ -215,19 +199,19 @@
                                         <m:cells>
                                             <m:Text
                                                 id="idBookNameColValueUserLoans"
-                                                text="The Great Gatsby"
+                                                text="{books/title}"
                                             />
                                             <m:Text
                                                 id="idAuthorColValueUserLoans"
-                                                text="F. Scott Fitzgerald"
+                                                text="{books/authorName}"
                                             />
                                             <m:Text
                                                 id="idISBNColValueUserLoans"
-                                                text="ISBN1234"
+                                                text="{books/ISBN}"
                                             />
                                             <m:Text
                                                 id="idDueDateValueUserLoans"
-                                                text="2024-7-7"
+                                                text=""
                                             />
                                         </m:cells>
                                     </m:ColumnListItem>
@@ -293,13 +277,7 @@
                                             id="idbookNameColHead"
                                             text="Book Title"
                                         />
-                                    </m:Column>
-                                    <m:Column id="idStockCol">
-                                        <m:Title
-                                            id="idStockColHead"
-                                            text="Stock"
-                                        />
-                                    </m:Column>
+                                    </m:Column>                                    
                                     <m:Column id="idavailableQuantityCol">
                                         <m:Title
                                             id="idavailableQuantityColHead"
@@ -326,10 +304,6 @@
                                             <m:Text
                                                 id="idBookNameColValue"
                                                 text="{title}"
-                                            />
-                                            <m:Text
-                                                id="idStockColValue"
-                                                text="{quantity}"
                                             />
                                             <m:Text
                                                 id="idavailableQuantityColValue"
