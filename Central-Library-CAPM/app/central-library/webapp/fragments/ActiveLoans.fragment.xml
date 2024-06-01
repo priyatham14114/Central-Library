@@ -52,7 +52,7 @@
                     </Column>
                     <Column id="idLoanTablecol3">
                         <Text
-                            id="idBookName"
+                            id="idBookNameActiveloans"
                             text="BookName"
                         />
                     </Column>
@@ -74,15 +74,15 @@
                         <cells>
                             <Text
                                 id="idLoanTableNameValue"
-                                text="{user/userName}"
+                                text="{borrowerName}"
                             />
                             <Text
                                 id="idLoanTableUserIdValue"
-                                text="{user/userid}"
+                                text="{borrowerUserId}"
                             />
                             <Text
                                 id="idLoanTableBookNameValue"
-                                text="{user/books/title}"
+                                text="{borrowingBookName}"
                             />
                             <Text
                                 id="idLoanTableDueDateValue"

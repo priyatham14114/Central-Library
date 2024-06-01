@@ -38,7 +38,7 @@
                 />
                 <Input
                     id="idNewLoanUserNameValue"
-                    value="{newLoanModel>/user/userName}"
+                    value="{newLoanModel>/borrowerName}"
                 />
                 <Label
                     id="idNewLoanUserIDLabel"
@@ -46,7 +46,7 @@
                 />
                 <Input
                     id="idNewLoanUserIDInput"
-                    value="{newLoanModel>/user/userid}"
+                    value="{newLoanModel>/borrowerUserId}"
                 />
                 <Label
                     id="idNewLoanBookNameLabel"
@@ -54,7 +54,7 @@
                 />
                 <Input
                     id="idNewLoanBookNameInput"
-                    value="{newLoanModel>/user/books/title}"
+                    value="{newLoanModel>/borrowingBookName}"
                 />
                 <Label
                     id="idNewLoanDueDate"
