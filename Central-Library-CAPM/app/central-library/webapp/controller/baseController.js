@@ -16,10 +16,19 @@ sap.ui.define([
             this.getView().addDependent(oFragment);
             return oFragment
         },
-        createData:function(){
-
-
-        }
+        createNew: function(oNewLoan){
+            return new Promise((resolve, reject) => {
+                oBindList.create(oNewLoan,{
+                    refreshAfterChange: true,
+                    success: function(oSuccessData){
+                        resolve(oSuccessData);
+                    },
+                    error: function(oErrorData){
+                        reject(oErrorData)
+                    }
+                })
+            })
+        },
 
     })
 

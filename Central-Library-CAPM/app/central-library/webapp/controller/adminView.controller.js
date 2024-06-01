@@ -26,20 +26,20 @@ sap.ui.define([
                     ISBN: "",
                 });
                 const newLoanModel = new JSONModel({
-                    user: {
-                        // ID: "",
-                        userName: "",
-                        userid: "",
-                        // userpassword: "",
-                        books: {
-                            // ID: "",
-                            // authorName: "",
-                            title: "",
-                            ISBN: "",
-                            // quantity: 0
-                        }
-                    },
+
+                    borrowerName: "",
+                    borrowerUserId: "",
+                    borrowingBookName: "",
                     dueOn: ""
+                    // user: {
+                    //     userName: "",
+                    //     userid: "",
+
+                    // },
+                    // takenbooks: {
+                    //     title: "",
+                    // },
+                    // dueOn: ""
                 });
 
                 this.getView().setModel(newBookModel, "newBookModel");
@@ -271,6 +271,8 @@ sap.ui.define([
 
                 }
                 this.oActiveLoanPopUp.open();
+                this.getView().byId("idLoanTable").getBinding("items").refresh();
+
             },
             onCloseActiveLoans: function () {
                 // debugger;
@@ -302,8 +304,6 @@ sap.ui.define([
                     this.oActiveLoanPopUp = await this.loadFragment("ActiveLoans")
                     this.oNewLoanDailog = await this.loadFragment("loanCreate")
                     this.oReservationsDialog = await this.loadFragment("Reservations")
-
-
                 }
                 this.oNewLoanDailog.open()
             },
@@ -316,10 +316,11 @@ sap.ui.define([
                 // last change here.....
                 try {
                     debugger
-                    var oContext = this.getView().byId("idLoanTable").getBinding("items")
+                    var oModel = this.getView().getModel(),
+                        oBindList = oModel.bindList("/Activeloans")
                     var oNewLoan = this.getView().getModel("newLoanModel").getData()
-                    var sEnteredUserId = oNewLoan.user.userid
-                    var sEnteredUserName = oNewLoan.user.userName
+                    var sEnteredUserId = oNewLoan.borrowerUserId
+                    var sEnteredUserName = oNewLoan.borrowerName
 
                     if (sEnteredUserId) {
                         var oModel = this.getView().getModel();
@@ -334,23 +335,21 @@ sap.ui.define([
                         oBinding.requestContexts().then(function (aContexts) {  //requestContexts is called to get the contexts (matching records) from the backend.
                             debugger
                             if (aContexts.length > 0) {
-                                oContext.create(oNewLoan)
-                                MessageToast.show("Book Issued Successfully")
+                                oBindList.create(oNewLoan)
+                                MessageToast.show("Book Issued Successfully");
                             } else {
                                 MessageToast.show("User data not matching with existing records")
                             }
                         })
                         this.oNewLoanDailog.close()
                         this.oActiveLoanPopUp.close()
-                        this.getView().getModel("newLoanModel").setData();
                     } else {
                         MessageToast.show("Enter correct user Data to Continue")
                     }
                 } catch (error) {
                     MessageToast.show(error)
-
                 }
-
+                // this.getView().getModel("newLoanModel").setData("");
             },
             onClearLoan: async function () {
                 debugger
@@ -369,7 +368,7 @@ sap.ui.define([
                 const oAdminView = this.getView(),
                     oSelected = oAdminView.byId("idLoanTable").getSelectedItem()
                 if (oSelected) {
-                    var oUser = oSelected.getBindingContext().getObject().user.userName;
+                    var oUser = oSelected.getBindingContext().getObject().borrowerName
                     oSelected.getBindingContext().delete("$auto").then(function () {
                         MessageToast.show(oUser + " SuccessFully Deleted");
                     },

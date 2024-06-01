@@ -1,6 +1,6 @@
 ID,userName,userid,userpassword,typeOfUser,photo
-af9eb5a6-18c8-4ff2-8b77-2870ae17ff9c,Subhash,subhash47@artihcus.com,subhash@47,,Admin,
-58dbb920-5f0f-4e53-9467-02d2016f32b5,priyatham,priyatham47@artihcus.com,priyatham@47,,Admin,
+af9eb5a6-18c8-4ff2-8b77-2870ae17ff9c,Subhash,subhash47@artihcus.com,subhash@47,Admin,,
+58dbb920-5f0f-4e53-9467-02d2016f32b5,priyatham,priyatham47@artihcus.com,priyatham@47,Admin,,
 1c6ae9ff-2304-4d4e-a71e-3d7a3c924a77,Emily,emily123@sap.com,pass_emily,Subscriber,./images/userEmily.jpg
 3841e1f0-6dd6-49f3-b8f8-53906a0ecda3,Lucas,lucas_456@sap.com,pass_lucas,Subscriber,./images/user1.jpg
 5a7bc4b9-d0b0-4703-8423-45800b8f08c8,Sophia,sophia_789@sap.com,pass_sophia,Subscriber,./images/user2.jpg
