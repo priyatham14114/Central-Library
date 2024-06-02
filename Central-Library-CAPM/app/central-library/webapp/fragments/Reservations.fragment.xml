@@ -16,6 +16,7 @@
             <Table
                 id="idReservationsTable"
                 inset="false"
+                items="{/Reservations}"
             >
                 <headerToolbar>
                     <Toolbar id="idReservationsToolBar">
@@ -67,19 +68,19 @@
                         <cells>
                             <Text
                                 id="idNewReservationTableNameValue"
-                                text="Emily"
+                                text="{ReserverdUserName}"
                             />
                             <Text
                                 id="idNewReservationTableUserIdValue"
-                                text="emily123@sap.com"
+                                text="{ReserverdUserId}"
                             />
                             <Text
                                 id="idNewReservationTableBookNameValue"
-                                text="1984"
+                                text="{ReserverdBook}"
                             />
                             <Text
                                 id="idNewReservationTableReservationID"
-                                text="ad72fdc0-1d7c-11ef-b94d-325096b39f47"
+                                text="{ID}"
                             />
                         </cells>
                     </ColumnListItem>

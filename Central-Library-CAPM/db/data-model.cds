@@ -35,3 +35,10 @@ entity Activeloans : cuid {
 //   takenbooks : Association to Books;
 //   dueOn      : Date;
 // }
+
+entity Reservations : cuid {
+  ReserverdUserName : String;
+  ReserverdUserId: String;
+  ReserverdBook: String;
+
+}
