@@ -64,7 +64,7 @@
                 <Input
                     id="idavailableQuantityInput"
                     type="Number"
-                    value="{newBookModel>/quantity}"
+                    value="{newBookModel>/availableQuantity}"
                 />
                 <Label
                     id="idBookISBNLabelCreate"

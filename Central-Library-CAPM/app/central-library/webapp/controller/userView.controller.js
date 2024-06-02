@@ -13,12 +13,12 @@ sap.ui.define(
        */
         return Controller.extend("com.app.centrallibrary.controller.userView", {
             onInit: function () {
-                const newBorrowModel = new JSONModel({
-                    authorName: "",
-                    title: "",
-                    ISBN: "",
-                    dueOn: ""
+                const newReservationModel = new JSONModel({
+                    ReserverdUserName:"",
+                    ReserverdUserId:"",
+                    ReserverdBook:""
                 });
+                this.getView().setModel(newReservationModel, "newReservationModel");
                 const oRouter = this.getOwnerComponent().getRouter();
                 oRouter.attachRoutePatternMatched(this.onCurrentUserDetails, this);
             },
@@ -39,11 +39,31 @@ sap.ui.define(
             },
             onReserveBookPress: async function () {
                 debugger
+                const oView = this.getView()
                 var oSelected = this.byId("idBooksTable").getSelectedItem();
                 if (oSelected) {
                     // var oStock = oSelected.getBindingContext().getObject().quantity
-                    var oAvailStock = oSelected.getBindingContext().getObject().availableQuantity
+                    var oAvailStock = oSelected.getBindingContext().getObject().availableQuantity,
+                     oBookName = oSelected.getBindingContext().getObject().title,
+                     oUser = oView.byId("idUserName").getText(),
+                     oUserId = oView.byId("idUserIdLink").getText()
+                    
                     if(oAvailStock === "0"){
+                        // const newReservationModel = new JSONModel({
+                        //     ReserverdUserName:oUser,
+                        //     ReserverdUserId:oUserId,
+                        //     ReserverdBook:oBookName
+                        // });
+                        // this.getView().setModel(newReservationModel, "newReservationModel");
+                        
+                        const oBinding = oView.getModel().bindList("/Reservations")
+                        oBinding.create({
+                            ReserverdUserName:oUser,
+                            ReserverdUserId:oUserId,
+                            ReserverdBook:oBookName
+
+                        })
+
                         MessageToast.show("Reservation Sent to Admin")
                     }
                     else{
@@ -51,6 +71,7 @@ sap.ui.define(
                     }
                 }
             },
+
         });
     }
 );

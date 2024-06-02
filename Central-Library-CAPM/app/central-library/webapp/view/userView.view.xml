@@ -93,7 +93,7 @@
                         text="{userName}"
                     />
                     <m:Link
-                        id="idLink2"
+                        id="idUserIdLink"
                         text="{userid}"
                     />
                 </layout:VerticalLayout>
@@ -146,11 +146,12 @@
                         titleUppercase="false"
                     >
                         <blocks>
-                            <!-- items="{/ActiveLoan}" -->
+                            <!-- items="{/ActiveLoans}" -->
                             <m:Table
                                 id="idUserActiveLoanTable"
                                 mode="SingleSelectMaster"
                                 alternateRowColors="true"
+                                items="{/ActiveLoans}"
                             >
                                 <m:headerToolbar>
                                     <m:OverflowToolbar
@@ -199,19 +200,19 @@
                                         <m:cells>
                                             <m:Text
                                                 id="idBookNameColValueUserLoans"
-                                                text="{books/title}"
+                                                text="{borrowerName}"
                                             />
                                             <m:Text
                                                 id="idAuthorColValueUserLoans"
-                                                text="{books/authorName}"
+                                                text="{borrowerUserId}"
                                             />
                                             <m:Text
                                                 id="idISBNColValueUserLoans"
-                                                text="{books/ISBN}"
+                                                text="{borrowingBookName}"
                                             />
                                             <m:Text
                                                 id="idDueDateValueUserLoans"
-                                                text=""
+                                                text="{dueOn}"
                                             />
                                         </m:cells>
                                     </m:ColumnListItem>

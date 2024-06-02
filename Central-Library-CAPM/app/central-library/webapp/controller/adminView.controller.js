@@ -22,7 +22,7 @@ sap.ui.define([
                     authorName: "",
                     title: "",
                     quantity: "",
-                    availableQuantity: "",
+                    availableQuantity:"",
                     ISBN: "",
                 });
                 const newLoanModel = new JSONModel({
@@ -224,6 +224,7 @@ sap.ui.define([
 
             onCreateBook: function () {
                 debugger
+                var oView = this.getView()
                 var oModel = this.getView().getModel(),
                     oBinding = oModel.bindList("/Books")
                 // var oContext = this.getView().byId("idBooksTable").getBinding("items")
@@ -233,11 +234,19 @@ sap.ui.define([
                         MessageToast.show("Book created successfully");
 
                     },
+                    refresh:oView.byId("idBooksTable").getBinding("items").refresh(),
+                    // setData:oView.getModel("newBookModel").setData(),
                     error: function () {
                         MessageToast.show("Error creating book");
                     }
                 });
+                oView.byId("idAuthorName").setValue(""),
+                oView.byId("idbookNameInput").setValue(""),
+                oView.byId("idStockInput").setValue(""),
+                oView.byId("idavailableQuantityInput").setValue(""),
+                oView.byId("idbooks_ISBNInput").setValue(""),
                 this.oCreateBookPop.close()
+                // this.getView().byId("idBooksTable").getBinding("items").refresh()
 
             },
 
