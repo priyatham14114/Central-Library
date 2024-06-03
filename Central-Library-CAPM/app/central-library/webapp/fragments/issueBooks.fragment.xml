@@ -3,6 +3,8 @@
     xmlns="sap.m"
     xmlns:form="sap.ui.layout.form"
 >
+
+<!-- Fragment not used  -->
     <Dialog
         id="idIssueBooksDailog"
         resizable="true"
