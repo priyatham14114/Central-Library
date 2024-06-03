@@ -303,6 +303,31 @@ sap.ui.define([
                     this.oNewLoanDailog.close();
                 }
             },
+            onDateChange: function(oEvent) {
+                var oInput = oEvent.getSource();
+                var sValue = oInput.getValue();
+    
+                // Regular expression to validate date format YYYY-MM-DD
+                var regex = /^\d{4}-\d{2}-\d{2}$/;
+    
+                if (sValue.match(regex)) {
+                    // Check current date
+                    var enteredDate = new Date(sValue);
+                    var currentDate = new Date();
+                    currentDate.setHours(0, 0, 0, 0); // Set to midnight to only compare dates
+    
+                    if (enteredDate >= currentDate) {
+                        oInput.setValueState("None");
+                        MessageToast.show("Date is valid")
+                    } else {
+                        oInput.setValueState("Error");
+                        MessageToast.show("Date cannot be in the past date.");
+                    }
+                } else {
+                    oInput.setValueState("Error");
+                    MessageToast.show("Invalid date format. Please use YYYY-MM-DD.");
+                }
+            },
             onSaveNewLoan: function () {
                 try {
                     debugger;
@@ -339,8 +364,7 @@ sap.ui.define([
 
                                         oBindList.create(oNewLoan);
 
-                                        // Update the book quantity
-                                        oBookData.availableQuantity -= 1;
+                                        oBookData.availableQuantity -= 1; // Updating qty
                                         oBookContext.setProperty("availableQuantity", oBookData.availableQuantity);
 
                                         oModel.submitBatch("updateGroup", {

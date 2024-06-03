@@ -123,6 +123,7 @@ sap.ui.define([
                     MessageToast.show("An error occurred during login.");
                 });
             },
+            
             onSignUpPress: async function () {
                 if (!this.oSignUpDialog) {
                     this.oSignUpDialog = await this.loadFragment("Signup")

@@ -137,94 +137,6 @@
         <sections>
             <ObjectPageSection
                 titleUppercase="false"
-                id="idUserBorrowedBooksSection"
-                title="Borrowed Books"
-            >
-                <subSections>
-                    <ObjectPageSubSection
-                        id="idUserBorrowedBooksSubSection"
-                        titleUppercase="false"
-                    >
-                        <blocks>
-                            <!-- items="{/ActiveLoans}" -->
-                            <m:Table
-                                id="idUserActiveLoanTable"
-                                mode="SingleSelectMaster"
-                                alternateRowColors="true"
-                                items="{/Activeloans}"
-                            >
-                                <m:headerToolbar>
-                                    <m:OverflowToolbar
-                                        id="idBooksTableHeaderUserLoans"
-                                    >
-                                        <m:Title
-                                            id="idTableHeaderTitleUserLoans"
-                                            text="Active Borrows"
-                                        />
-                                        <m:ToolbarSpacer
-                                            id="idTableHeaderSpacerUserLoans"
-                                        />
-                                    </m:OverflowToolbar>
-                                </m:headerToolbar>
-                                <m:columns>
-                                    <m:Column id="idBookNameColUserLoans">
-                                        <m:Title
-                                            id="idBookNameColTitleUserLoans"
-                                            text="Book Name"
-                                        />
-                                    </m:Column>
-                                    <m:Column id="idAuthorColUserLoans">
-                                        <m:Title
-                                            id="idAuthorColTitleUserLoans"
-                                            text="Author"
-                                        />
-                                    </m:Column>
-                                    <m:Column id="idISBNColUserLoans">
-                                        <m:Title
-                                            id="idISBNColTitleUserLoans"
-                                            text="ISBN"
-                                        />
-                                    </m:Column>
-                                    <m:Column id="idDueDateColUserLoans">
-                                        <m:Title
-                                            id="idDueDateColTitleUserLoans"
-                                            text="DueDate"
-                                        />
-                                    </m:Column>
-                                </m:columns>
-                                <m:items>
-                                    <m:ColumnListItem
-                                        id="idBooksTableColListItemUserLoans"
-                                        type="Navigation"
-                                    >
-                                        <m:cells>
-                                            <m:Text
-                                                id="idBookNameColValueUserLoans"
-                                                text="{borrowerName}"
-                                            />
-                                            <m:Text
-                                                id="idAuthorColValueUserLoans"
-                                                text="{borrowerUserId}"
-                                            />
-                                            <m:Text
-                                                id="idISBNColValueUserLoans"
-                                                text="{borrowingBookName}"
-                                            />
-                                            <m:Text
-                                                id="idDueDateValueUserLoans"
-                                                text="{dueOn}"
-                                            />
-                                        </m:cells>
-                                    </m:ColumnListItem>
-                                </m:items>
-                            </m:Table>
-                        </blocks>
-                    </ObjectPageSubSection>
-                </subSections>
-            </ObjectPageSection>
-
-            <ObjectPageSection
-                titleUppercase="false"
                 id="idBorrowBooksSection"
                 title="Borrow Section"
             >
@@ -257,6 +169,12 @@
                                             id="idTableHeaderSpacer"
                                         />
                                         <m:Button
+                                            id="idRefreshBtn2"
+                                            icon="sap-icon://refresh"
+                                            type="Emphasized"
+                                            press="onRefresh"
+                                        />
+                                        <m:Button
                                             id="idBtnEdit"
                                             text="Reserve Book"
                                             icon="sap-icon://add"
@@ -278,7 +196,7 @@
                                             id="idbookNameColHead"
                                             text="Book Title"
                                         />
-                                    </m:Column>                                    
+                                    </m:Column>
                                     <m:Column id="idavailableQuantityCol">
                                         <m:Title
                                             id="idavailableQuantityColHead"
@@ -313,6 +231,105 @@
                                             <m:Text
                                                 id="idISBNColValue"
                                                 text="{ISBN}"
+                                            />
+                                        </m:cells>
+                                    </m:ColumnListItem>
+                                </m:items>
+                            </m:Table>
+                        </blocks>
+                    </ObjectPageSubSection>
+                </subSections>
+            </ObjectPageSection>
+
+            <ObjectPageSection
+                titleUppercase="false"
+                id="idUserBorrowedBooksSection"
+                title="All Borrows"
+            >
+                <subSections>
+                    <ObjectPageSubSection
+                        id="idUserBorrowedBooksSubSection"
+                        titleUppercase="false"
+                    >
+                        <blocks>
+                            <m:Table
+                                id="idUserActiveLoanTable"
+                                mode="SingleSelectMaster"
+                                alternateRowColors="true"
+                                items="{/Activeloans}"
+                            >
+                                <m:headerToolbar>
+                                    <m:OverflowToolbar
+                                        id="idBooksTableHeaderUserLoans"
+                                    >
+                                        <m:Title
+                                            id="idTableHeaderTitleUserLoans"
+                                            text="Active Borrows"
+                                        />
+                                        <m:ToolbarSpacer
+                                            id="idTableHeaderSpacerUserLoans"
+                                        />
+                                        <m:MultiInput
+                                            placeholder="Check your loans by your name"
+                                            width="30%"
+                                            showClearIcon="true"
+                                            id="idUserInputValue"
+                                            showValueHelp="false"
+                                        />
+                                        <m:Button id="idUserNameSearch"
+                                            type="Default"
+                                            text="Filter"
+                                            press="onFilterCilck"
+                                         />
+                                    </m:OverflowToolbar>
+                                </m:headerToolbar>
+                                <m:columns>
+                                    <m:Column id="idBookNameColUserLoans">
+                                        <m:Title
+                                            id="idBookNameColTitleUserLoans"
+                                            text="User Name"
+                                        />
+                                    </m:Column>
+                                    <m:Column id="idAuthorColUserLoans">
+                                        <m:Title
+                                            id="idAuthorColTitleUserLoans"
+                                            text="User ID"
+                                        />
+                                    </m:Column>
+                                    <m:Column id="idISBNColUserLoans">
+                                        <m:Title
+                                            id="idISBNColTitleUserLoans"
+                                            text="Book Name"
+                                        />
+                                    </m:Column>
+                                    <m:Column id="idDueDateColUserLoans">
+                                        <m:Title
+                                            id="idDueDateColTitleUserLoans"
+                                            text="DueDate"
+                                        />
+                                    </m:Column>
+                                </m:columns>
+                                <m:items>
+                                    <m:ColumnListItem
+                                        id="idBooksTableColListItemUserLoans"
+                                        type="Navigation"
+                                    >
+                                        <m:cells>
+                                            <m:Text
+                                                id="idBookNameColValueUserLoans"
+                                                text="{borrowerName}"
+                                            />
+                                            <m:Text
+                                                id="idAuthorColValueUserLoans"
+                                                text="{borrowerUserId}"
+                                            />
+                                            <m:Text
+                                                id="idISBNColValueUserLoans"
+                                                text="{borrowingBookName}"
+                                            />
+                                            <m:Text
+                                                id="idDueDateValueUserLoans"
+                                                text="{dueOn}"
                                             />
                                         </m:cells>
                                     </m:ColumnListItem>

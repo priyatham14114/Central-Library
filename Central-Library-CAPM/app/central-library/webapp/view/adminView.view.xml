@@ -166,7 +166,7 @@
 
                 <Title
                     id="idTableHeaderTitle123"
-                    text="Availble Stock"
+                    text="Availble Books"
                 />
                 <ToolbarSpacer id="idTableHeaderSpacer" />
                 <Button
