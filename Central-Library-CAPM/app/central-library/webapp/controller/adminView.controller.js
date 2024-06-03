@@ -117,65 +117,7 @@ sap.ui.define([
                     sBookName = oAdminView.byId("idTitleInputValue").destroyTokens();
             },
 
-            onUpdateBook: function () {
-                debugger
-                const oModel = this.getView().getModel().bindList("/Books")
-                var oEditBook = this.getView().getModel("newBookModel").getData();
-                // const oView = this.getView(),
-                //     oAuthorName = oView.byId("idAuthorName").getValue(),
-                //     oBookname = oView.byId("idbookNameInput").getValue(),
-                //     oStock = oView.byId("idStockInput").getValue(),
-                //     oISBN = oView.byId("idbooks_ISBNInput").getValue();
-                // const newBookModel = new JSONModel({
-                //     authorName: oAuthorName,
-                //     title: oBookname,
-                //     quantity: oStock,
-                //     ISBN: oISBN,
-                // });
-
-                // var sPath = "/Books";
-                // oModel.update(sPath, oEditBook, {
-                //     success: function () {
-                //         MessageToast.show("Book updated successfully");
-                //     },
-                //     error: function () {
-                //         MessageToast.show("Error updating book");
-                //     }
-                // });
-                var oContext = this.getView().byId("idBooksTable").getBinding("items")
-                var oNewBook = this.getView().getModel("newBookModel").getData();
-                oModel.update(oNewBook, {
-                    success: function () {
-                        MessageToast.show("Book created successfully");
-                    },
-                    error: function () {
-                        MessageToast.show("Error creating book");
-                    }
-                });
-                this.oEditBooksPop.close()
-
-            },
-            onCreateBtnPress: async function () {
-                debugger
-                if (!this.oCreateBookPop) {
-                    this.oCreateBookPop = await this.loadFragment("createBook")
-                }
-                this.oCreateBookPop.open()
-
-            },
-            onCloseLoginDailog: function () {
-                if (this.oCreateBookPop.isOpen()) {
-                    const newBookModel = new JSONModel({
-                        authorName: "",
-                        title: "",
-                        quantity: "",
-                        availableQuantity: "",
-                        ISBN: "",
-                    });
-                    this.getView().setModel(newBookModel, "newBookModel");
-                    this.oCreateBookPop.close()
-                }
-            },
+            
             onEditBook: async function () {
                 debugger
                 // if (!this.oEditBooksPop) {
@@ -211,16 +153,45 @@ sap.ui.define([
                 }
 
             },
-            // onCloseLoginDailog: function () {
-            //     // if (this.oEditBooksPop.isOpen()) {
-            //     //     this.oEditBooksPop.close()
-            //     // }
+            onUpdateBook: function () {
+                debugger
+                var oPayload = this.getView().getModel("newBookModel").getData();
+                var oTable = this.getView().byId("idBooksTable");
+                var oSelectedItem = oTable.getSelectedItem();
+            
+                if (!oSelectedItem) {
+                    MessageToast.show("Select a book to update");
+                    return;
+                }
+            
+                var oContext = oSelectedItem.getBindingContext();
+                var oModel = oContext.getModel();
+            
+                // Update the properties directly on the context
+                for (var prop in oPayload) {
+                    if (oPayload.hasOwnProperty(prop)) {
+                        oContext.setProperty(prop, oPayload[prop]);
+                    }
+                }
+            
+                // Submit the changes
+                oModel.submitBatch("updateGroup").then(function() {
+                    oTable.getBinding("items").refresh();
+                    this.oCreateBookPop.close();
+                    MessageToast.show("Book Updated Successfully");
+                }.bind(this)).catch(function(oError) {
+                    this.oCreateBookPop.close();
+                    sap.m.MessageBox.error("Failed to update book: " + oError.message);
+                }.bind(this));
+            },            
+            onCreateBtnPress: async function () {
+                debugger
+                if (!this.oCreateBookPop) {
+                    this.oCreateBookPop = await this.loadFragment("createBook")
+                }
+                this.oCreateBookPop.open()
 
-            //     if (this.oCreateBookPop.isOpen()) {
-            //         this.oCreateBookPop.close()
-            //     }
-
-            // },
+            },
 
             onCreateBook: function () {
                 debugger
@@ -247,6 +218,13 @@ sap.ui.define([
                 oView.byId("idbooks_ISBNInput").setValue(""),
                 this.oCreateBookPop.close()
                 // this.getView().byId("idBooksTable").getBinding("items").refresh()
+
+            },
+              onCloseLoginDailog: function () {
+
+                if (this.oCreateBookPop.isOpen()) {
+                    this.oCreateBookPop.close()
+                }
 
             },
 
@@ -298,9 +276,10 @@ sap.ui.define([
                     // this.oActiveLoanPopUp = await this.loadFragment("ActiveLoans")
                     // this.oNewLoanDailog = await this.loadFragment("loanCreate")
 
-
                 }
+                this.getView().byId("idReservationsTable").getBinding("items").refresh();
                 this.oReservationsDialog.open()
+
             },
             onReservationsClose: function () {
                 if (this.oReservationsDialog.isOpen()) {
@@ -340,7 +319,6 @@ sap.ui.define([
                             new Filter("userName", FilterOperator.EQ, sEnteredUserName),
 
                         ]);
-
                         oBinding.requestContexts().then(function (aContexts) {  //requestContexts is called to get the contexts (matching records) from the backend.
                             debugger
                             if (aContexts.length > 0) {

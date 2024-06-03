@@ -12,7 +12,7 @@ sap.ui.define([
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, Fragment, MessageToast, Filter, FilterOperator,JSONModel) {
+    function (Controller, Fragment, MessageToast, Filter, FilterOperator, JSONModel) {
         "use strict";
 
         return Controller.extend("com.app.centrallibrary.controller.loginView", {
@@ -21,11 +21,11 @@ sap.ui.define([
                 // const oPage = this.getView().byId("idLoginObjectPage");
                 // oPage.attachBrowserEvent("dblclick", this.onDoubleClick.bind(this));
                 const oNewUserRegister = new JSONModel({
-                    userName:"",
-                    userid:"",
-                    userpassword:""
+                    userName: "",
+                    userid: "",
+                    userpassword: ""
                 })
-                this.getView().setModel(oNewUserRegister,"oNewUserRegister")
+                this.getView().setModel(oNewUserRegister, "oNewUserRegister")
 
             },
             // onLoginPress: async function () {
@@ -48,7 +48,7 @@ sap.ui.define([
                 this.oLoginDailogPopUp.open();
 
             },
-           
+
             onCloseLoginDailog: function () {
                 if (this.oLoginDailogPopUp.isOpen()) {
                     this.oLoginDailogPopUp.close()
@@ -129,33 +129,53 @@ sap.ui.define([
                 }
                 this.oSignUpDialog.open()
             },
-            onCreateAccount:function(){
-
-                const oNewUserName = this.getView().byId("idSignUpUserName").getValue(),
-                oNewUserId = this.getView().byId("idSignUpUserIdVal").getValue(),
-                oNewUserPassword = this.getView().byId("idSignUpUserPassword").getValue(),
-                oNewUserConfirmPassword = this.getView().byId("idSignUpUserConfirmPasswordval").getValue();
-
-                if(oNewUserPassword === oNewUserConfirmPassword){
+            onCreateAccount: function () {
                 debugger
-                // var oContext = this.getView().byId("idBooksTable").getBinding("items")
-                const oContext = this.getView().getModel().bindList("/UserLogin")
-                var oNewUser = this.getView().getModel("oNewUserRegister").getData();
-                oContext.create(oNewUser, {
-                    success: function () {
-                        MessageToast.show("Registration Successfull");
-                    },
-                    error: function () {
-                        MessageToast.show("Registration failed");
-                    }
-                });
-                this.oSignUpDialog.close()
-                this.getView().getModel("oNewUserRegister").setData("");
-                this.getView().byId("idSignUpUserConfirmPasswordval").setValue("")
-                }else{
-                    MessageToast.show("Password must match");
-                }
+                const oNewUserName = this.getView().byId("idSignUpUserName").getValue(),
+                    oNewUserId = this.getView().byId("idSignUpUserIdVal").getValue(),
+                    oNewUserPassword = this.getView().byId("idSignUpUserPassword").getValue(),
+                    oNewUserConfirmPassword = this.getView().byId("idSignUpUserConfirmPasswordval").getValue();
 
+                if (oNewUserName && oNewUserId && oNewUserPassword) {
+                    debugger
+                    // var oContext = this.getView().byId("idBooksTable").getBinding("items")
+                    const oContext = this.getView().getModel().bindList("/UserLogin")
+                    var oNewUser = this.getView().getModel("oNewUserRegister").getData();
+                    if (oNewUserPassword === oNewUserConfirmPassword) {
+                        //last change here 
+                        var oModel = this.getView().getModel();
+                        var oBinding = oModel.bindList("/UserLogin");
+
+                        oBinding.filter([
+                            new Filter("userid", FilterOperator.EQ, oNewUserId),
+                        ]);
+
+                        oBinding.requestContexts().then(function (aContexts) {  //requestContexts is called to get the contexts (matching records) from the backend.
+                            debugger
+                            if (aContexts.length > 0) {
+                                MessageToast.show("User ID already exists")
+                            } else {
+                                oContext.create(oNewUser, {
+                                    success: function () {
+                                        MessageToast.show("Registration Successfull");
+                                    },
+                                    error: function () {
+                                        MessageToast.show("Registration failed");
+                                    }
+                                });
+                            }
+                            // this.getView().getModel("oNewUserRegister").setData("");
+                            // this.getView().byId("idSignUpUserConfirmPasswordval").setValue("")
+                        })
+
+                    }
+                    else {
+                        MessageToast.show("password must match")
+                    }
+                } else {
+                    MessageToast.show("Enter all required fields ");
+                }
+                this.oSignUpDialog.close()
             },
             onSignUpCancel: function () {
                 if (this.oSignUpDialog.isOpen()) {

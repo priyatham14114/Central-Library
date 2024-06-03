@@ -40,7 +40,8 @@ sap.ui.define(
             onReserveBookPress: async function () {
                 debugger
                 const oView = this.getView()
-                var oSelected = this.byId("idBooksTable").getSelectedItem();
+                var oSelected = this.byId("idBooksTable").getSelectedItem(),
+                oAvailStock = oSelected.getBindingContext().getObject().availableQuantity
                 if (oSelected) {
                     // var oStock = oSelected.getBindingContext().getObject().quantity
                     var oAvailStock = oSelected.getBindingContext().getObject().availableQuantity,
@@ -49,12 +50,6 @@ sap.ui.define(
                      oUserId = oView.byId("idUserIdLink").getText()
                     
                     if(oAvailStock === "0"){
-                        // const newReservationModel = new JSONModel({
-                        //     ReserverdUserName:oUser,
-                        //     ReserverdUserId:oUserId,
-                        //     ReserverdBook:oBookName
-                        // });
-                        // this.getView().setModel(newReservationModel, "newReservationModel");
                         
                         const oBinding = oView.getModel().bindList("/Reservations")
                         oBinding.create({
