@@ -1,11 +1,11 @@
 ID,authorName,title,ISBN,quantity,availableQuantity
-550e8400-e29b-41d4-a716-446655440000,F. Scott Fitzgerald,The Great Gatsby,H4780K743,5,5
+550e8400-e29b-41d4-a716-446655440000,F. Scott Fitzgerald,The Great Gatsby,H4780K743,5,3
 550e8400-e29b-41d4-a716-446655440001,George Orwell,1984,S780K743,5,0
 550e8400-e29b-41d4-a716-446655440002,Harper Lee,To Kill a Mockingbird,U0780K743,4,4
 550e8400-e29b-41d4-a716-446655440003,Jane Austen,Pride and Prejudice,Z0780K743,2,0
 550e8400-e29b-41d4-a716-446655440004,J.D. Salinger,The Catcher in the Rye,Q2780K743,3,3
 550e8400-e29b-41d4-a716-446655440005,Mark Twain,The Adventures of Huckleberry Finn,6J780K743,6,0
-550e8400-e29b-41d4-a716-446655440006,J.K. Rowling,Harry Potter and the Sorcerer's Stone,P1780K743,10,10
+550e8400-e29b-41d4-a716-446655440006,J.K. Rowling,Harry Potter and the Sorcerer's Stone,P1780K743,10,9
 550e8400-e29b-41d4-a716-446655440007,J.R.R. Tolkien,The Hobbit,P3780K743,8,8
 550e8400-e29b-41d4-a716-446655440008,Leo Tolstoy,War and Peace,L0780K743,7,7
 550e8400-e29b-41d4-a716-446655440009,Charlotte Brontë,Jane Eyre,K9780K743,5,5
@@ -13,4 +13,4 @@ ID,authorName,title,ISBN,quantity,availableQuantity
 550e8400-e29b-41d4-a716-446655440011,Emily Brontë,Wuthering Heights,E9780K743,3,3
 550e8400-e29b-41d4-a716-446655440012,Charles Dickens,A Tale of Two Cities,D9780K743,6,6
 550e8400-e29b-41d4-a716-446655440013,Fyodor Dostoevsky,Crime and Punishment,J9780K754,5,5
-550e8400-e29b-41d4-a716-446655440014,Gabriel García Márquez,One Hundred Years of Solitude,M9784K743,7,7
+550e8400-e29b-41d4-a716-446655440014,Gabriel García Márquez,One Hundred Years of Solitude,M9784K743,7,6

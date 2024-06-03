@@ -151,7 +151,7 @@
                                 id="idUserActiveLoanTable"
                                 mode="SingleSelectMaster"
                                 alternateRowColors="true"
-                                items="{/ActiveLoans}"
+                                items="{/Activeloans}"
                             >
                                 <m:headerToolbar>
                                     <m:OverflowToolbar
@@ -251,7 +251,7 @@
 
                                         <m:Title
                                             id="idTableHeaderTitle"
-                                            text="Availble Stock"
+                                            text="Availble Books"
                                         />
                                         <m:ToolbarSpacer
                                             id="idTableHeaderSpacer"
