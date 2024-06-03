@@ -62,6 +62,8 @@
                 />
                 <Input
                     id="idNewLoanDueDateInput"
+                    placeholder="YYYY-MM-DD"
+                    liveChange="onDateChange"
                     value="{newLoanModel>/dueOn}"
                 />
                 <!-- <DatePicker id="idDatepicker" value="{

@@ -8,8 +8,8 @@
         id="idSignUpDialog"
         resizable="true"
         draggable="true"
-        contentWidth="90%"
-        contentHeight="90%"
+        contentWidth="50%"
+        contentHeight="30%"
         title="Create Account"
     >
         <beginButton>
@@ -74,7 +74,6 @@
                     value="{oNewUserRegister>/userpassword}"
                     type="Password"
                     required="true"
-
                 />
                 <Label
                     id="idSignUpUserConfirmPasswordlabel"
@@ -85,9 +84,8 @@
                     type="Password"
                     value=""
                     required="true"
-
                 />
-                <upload:UploadSet
+                <!-- <upload:UploadSet
 				id="UploadSet"
 				instantUpload="true"
 				showIcons="true"
@@ -132,7 +130,7 @@
 					</upload:statuses>
 				</upload:UploadSetItem>
 			</upload:items>
-		</upload:UploadSet>
+		</upload:UploadSet> -->
             </form:SimpleForm>
         </content>
     </Dialog>
