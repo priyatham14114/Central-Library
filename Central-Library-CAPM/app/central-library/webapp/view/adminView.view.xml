@@ -170,6 +170,12 @@
                 />
                 <ToolbarSpacer id="idTableHeaderSpacer" />
                 <Button
+                    id="idRefreshBtn"
+                    icon="sap-icon://refresh"
+                    type="Emphasized"
+                    press="onRefresh"
+                />
+                <Button
                     id="idBtnEdit"
                     text="Edit"
                     icon="sap-icon://edit"
