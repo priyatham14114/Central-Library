@@ -213,7 +213,7 @@
                     text="Book Title"
                 />
             </Column>
-            <Column id="idStockCol">
+            <Column id="idStockCoL">
                 <Title
                     id="idStockColHead"
                     text="Stock"
