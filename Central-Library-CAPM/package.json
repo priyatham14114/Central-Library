@@ -38,6 +38,9 @@
           "kind": "hana"
         }
       },
+      "[production]": {
+        "auth": "xsuaa"
+      },
       "[development]": {
         "auth": {
           "kind": "mocked",
