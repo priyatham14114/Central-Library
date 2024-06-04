@@ -1,0 +1,53 @@
+.loginCard {
+
+    margin-top: 30vh;
+    margin-left: 30vw;
+}
+
+.Buttons {
+    margin-top: 6px;
+    margin: 10px;
+    display: flex;
+    justify-content: end;
+}
+
+.Button {
+    margin: 5px;
+}
+
+.buttonsHbox {
+    display: flex;
+    justify-content: end;
+    margin: 10px;
+}
+
+.buttons {
+    margin-left: 10px;
+}
+.issueBookBTN{
+    margin-top: 10px;
+}
+.loanButton {
+    margin-top: 10px;
+    margin-left: 10px;
+    
+}
+.buttonsHbox{
+    display: flex;
+    justify-content: right;
+    margin:10px;
+}
+.buttons{
+margin-left: 10px;
+}
+.adminDataStyle{
+    margin-top: 20px;
+}
+/* .LoginPage{
+    background-image: url("https://t3.ftcdn.net/jpg/07/29/27/48/240_F_729274803_3rb8xuW4m84gUFBQJd1jAwDQyehVs0RJ.jpg");
+    background-size: cover;
+    height: 100vh;
+} */
+/* .profileCard{
+    margin-top: 10vh;
+} */

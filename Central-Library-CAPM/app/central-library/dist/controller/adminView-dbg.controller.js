@@ -117,7 +117,7 @@ sap.ui.define([
                     sBookName = oAdminView.byId("idTitleInputValue").destroyTokens();
             },
 
-            onRefresh: function () {
+            onRefresh:function(){
                 this.getView().byId("idBooksTable").getBinding("items").refresh()
 
             },
@@ -303,23 +303,23 @@ sap.ui.define([
                     this.oNewLoanDailog.close();
                 }
             },
-            onDateChange: function (oEvent) {
+            onDateChange: function(oEvent) {
                 var oInput = oEvent.getSource();
                 var sValue = oInput.getValue();
-
+    
                 // Regular expression to validate date format YYYY-MM-DD
                 var regex = /^\d{4}-\d{2}-\d{2}$/;
-
+    
                 if (sValue.match(regex)) {
                     // Check current date
                     var enteredDate = new Date(sValue);
                     var currentDate = new Date();
                     currentDate.setHours(0, 0, 0, 0);  // Set to midnight to only compare dates
-
+    
                     if (enteredDate >= currentDate) {
                         oInput.setValueState("None");
                         MessageToast.show("Date is valid")
-                        const flag = true
+                        const flag =true
                     } else {
                         oInput.setValueState("Error");
                         MessageToast.show("Date cannot be in the past date.");
@@ -363,22 +363,20 @@ sap.ui.define([
                                         var oBookContext = aBookContexts[0];
                                         var oBookData = oBookContext.getObject();
 
-                                        if (oBookData.availableQuantity > 0) {
-                                            oBookData.availableQuantity -= 1; // Updating qty
-                                            oBindList.create(oNewLoan); //newloan 
-                                            oBookContext.setProperty("availableQuantity", oBookData.availableQuantity);
-                                            oModel.submitBatch("updateGroup", {
-                                                success: function () {
-                                                    MessageToast.show("Book Issued Successfully");
-                                                },
-                                                error: function (oError) {
-                                                    MessageToast.show("Error updating book quantity");
-                                                }
-                                            });
+                                        oBindList.create(oNewLoan);
 
-                                        } else {
-                                            MessageToast.show("Book not available")
-                                        }
+                                        oBookData.availableQuantity -= 1; // Updating qty
+                                        oBookContext.setProperty("availableQuantity", oBookData.availableQuantity);
+
+                                        oModel.submitBatch("updateGroup", {
+                                            success: function () {
+                                                MessageToast.show("Book Issued Successfully");
+                                            },
+                                            error: function (oError) {
+                                                MessageToast.show("Error updating book quantity");
+                                            }
+                                        });
+
                                     } else {
                                         MessageToast.show("Book not found");
                                     }
@@ -438,7 +436,7 @@ sap.ui.define([
                                 var oBookData = oBookContext.getObject();
                                 var oQuan = oBookData.availableQuantity
                                 var iQuan = parseInt(oQuan)
-                                var ofinalQuan = iQuan + 1;
+                                var ofinalQuan = iQuan + 1; 
 
                                 oBookContext.setProperty("availableQuantity", ofinalQuan);
                                 oModel.submitBatch("updateGroup", {
