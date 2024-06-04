@@ -1,0 +1,92 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:form="sap.ui.layout.form"
+>
+    <Dialog
+        id="idReservationsDailog"
+        resizable="true"
+        draggable="true"
+        contentWidth="80%"
+        contentHeight="80%"
+        title="Reservations Section"
+    >
+        <content>
+                        <!-- items="{/Reservations}" -->
+            <Table
+                id="idReservationsTable"
+                inset="false"
+                items="{/Reservations}"
+            >
+                <headerToolbar>
+                    <Toolbar id="idReservationsToolBar">
+                        <Title
+                            id="idReservationsTitle"
+                            text="All Reservations"
+                        />
+                        <ToolbarSpacer id="idReservationsSpacer" />
+                        <!-- <Button
+                            id="idReservationsAddButton"
+                            text="Add"
+                            press="onNewReservationPress"
+                        /> -->
+                        <Button
+                            id="idNewReservationCloseBTN"
+                            text="close"
+                            press="onReservationsClose"
+                        />
+                    </Toolbar>
+                </headerToolbar>
+                <columns>
+                    <Column id="idNewReservationTablecol1">
+                        <Text
+                            id="idNewReservationUserName"
+                            text="Name"
+                        />
+                    </Column>
+                    <Column id="idNewReservationTablecol2">
+                        <Text
+                            id="idNewReservationUserID"
+                            text="User ID"
+                        />
+                    </Column>
+                    <Column id="idNewReservationTablecol3">
+                        <Text
+                            id="idBookName"
+                            text="BookName"
+                        />
+                    </Column>
+                    <Column id="idNewReservationTablecol5">
+                        <Text
+                            id="idReservationID"
+                            text="Reservation ID"
+                        />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem id="idNewReservationTableColListItems">
+                        <cells>
+                            <Text
+                                id="idNewReservationTableNameValue"
+                                text="{ReserverdUserName}"
+                            />
+                            <Text
+                                id="idNewReservationTableUserIdValue"
+                                text="{ReserverdUserId}"
+                            />
+                            <Text
+                                id="idNewReservationTableBookNameValue"
+                                text="{ReserverdBook}"
+                            />
+                            <Text
+                                id="idNewReservationTableReservationID"
+                                text="{ID}"
+                            />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+    </Dialog>
+    
+</core:FragmentDefinition>

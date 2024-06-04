@@ -1,0 +1,60 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:form="sap.ui.layout.form"
+>
+    <Dialog
+        id="idConfirmCloseLoanDailog2"
+        resizable="true"
+        draggable="true"
+        contentWidth="40%"
+        contentHeight="25%"
+        title="Confirm Delete"
+    >
+        <content>
+            <form:SimpleForm
+                id="idConfirmDeleteForm"
+                layout="ResponsiveGridLayout"
+                labelSpanXL="3"
+                labelSpanL="3"
+                labelSpanM="3"
+                labelSpanS="12"
+                adjustLabelSpan="false"
+                emptySpanXL="4"
+                emptySpanL="4"
+                emptySpanM="4"
+                emptySpanS="0"
+                columnsXL="1"
+                columnsL="1"
+                columnsM="1"
+                singleContainerFullSize="false"
+            >
+                <VBox id="idVbox">
+                    <Label id="idDeleteCaution" text="CAUTION : " />
+                    <Label id="idDeleteCaution1" text="Are you sure you want to delete selected record ?" />
+                    <Label id="idDeleteCaution2" text="Make sure the person returned all the books..!" />
+                    <HBox
+                        id="idHboxCreate"
+                        class="buttonsHbox"
+                    >
+                        <Button
+                            id="idClearLoanButton2"
+                            icon="sap-icon://delete"
+                            tooltip="Delete Record"
+                            text="Confirm"
+                            type="Negative"
+                            press="onClearLoanButtonPress"
+                        />
+                        <Button
+                            class="buttons"
+                            id="idCloseCautionConfirmPopUp"
+                            text="Cancel"
+                            press="oDeleteCautionDailogClose"
+                            type="Default"
+                        />
+                    </HBox>
+                </VBox>
+            </form:SimpleForm>
+        </content>
+    </Dialog>
+</core:FragmentDefinition>
