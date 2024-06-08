@@ -28,7 +28,8 @@ entity Activeloans : cuid {
   borrowerName : String;
   borrowerUserId : String;
   borrowingBookName : String;
-  dueOn      : Date;
+  borrowingBookISBN : String;
+  dueOn      : String;
 }
 // entity Activeloans : cuid {
 //   user       : Association to UserLogin;
@@ -37,8 +38,8 @@ entity Activeloans : cuid {
 // }
 
 entity Reservations : cuid {
-  ReserverdUserName : String;
-  ReserverdUserId: String;
-  ReserverdBook: String;
+  ReservedUserName : String;
+  ReservedUserId: String;
+  ReservedBook: String;
 
 }

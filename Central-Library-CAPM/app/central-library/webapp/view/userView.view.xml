@@ -270,7 +270,7 @@
                                             id="idTableHeaderSpacerUserLoans"
                                         />
                                         <m:MultiInput
-                                            placeholder="Check your loans by your name"
+                                            placeholder="Check loans by book name"
                                             width="30%"
                                             showClearIcon="true"
                                             id="idUserInputValue"

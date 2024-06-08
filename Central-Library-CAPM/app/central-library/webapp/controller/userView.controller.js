@@ -18,9 +18,9 @@ sap.ui.define(
             onInit: function () {
 
                 const newReservationModel = new JSONModel({
-                    ReserverdUserName: "",
-                    ReserverdUserId: "",
-                    ReserverdBook: ""
+                    ReservedUserName: "",
+                    ReservedUserId: "",
+                    ReservedBook: ""
                 });
                 this.getView().setModel(newReservationModel, "newReservationModel");
 
@@ -59,10 +59,10 @@ sap.ui.define(
             onReserveBookPress: async function () {
                 debugger
                 const oView = this.getView()
-                var oSelected = this.byId("idBooksTable").getSelectedItem(),
-                    oAvailStock = oSelected.getBindingContext().getObject().availableQuantity
+                var oSelected = this.byId("idBooksTable").getSelectedItem()
                 if (oSelected) {
                     // var oStock = oSelected.getBindingContext().getObject().quantity
+                    // oAvailStock = oSelected.getBindingContext().getObject().availableQuantity
                     var oAvailStock = oSelected.getBindingContext().getObject().availableQuantity,
                         oBookName = oSelected.getBindingContext().getObject().title,
                         oUser = oView.byId("idUserName").getText(),
@@ -72,9 +72,9 @@ sap.ui.define(
 
                         const oBinding = oView.getModel().bindList("/Reservations")
                         oBinding.create({
-                            ReserverdUserName: oUser,
-                            ReserverdUserId: oUserId,
-                            ReserverdBook: oBookName
+                            ReservedUserName: oUser,
+                            ReservedUserId: oUserId,
+                            ReservedBook: oBookName
 
                         })
 
@@ -83,15 +83,17 @@ sap.ui.define(
                     else {
                         MessageToast.show("Book is available you don't need to reserve")
                     }
+                }else{
+                    MessageToast.show("Select a book to reserve")
                 }
             },
             onFilterCilck: function () {
                 const oUserView = this.getView(),
                 oBorrowTable = oUserView.byId("idUserActiveLoanTable"),
-                    sUser = oUserView.byId("idUserInputValue").getValue()
+                    sBook = oUserView.byId("idUserInputValue").getValue()
                 var aFilters = []
 
-                    sUser ? aFilters.push(new Filter("borrowerName", FilterOperator.EQ, sUser)): "";
+                sBook ? aFilters.push(new Filter("borrowingBookName", FilterOperator.EQ, sBook)): "";
 
                 // sUser.filter((ele) => {
                 //     ele ? aFilters.push(new Filter("borrowerName", FilterOperator.EQ, ele.getKey())) : "";

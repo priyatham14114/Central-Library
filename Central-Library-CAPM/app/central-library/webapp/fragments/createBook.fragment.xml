@@ -5,7 +5,7 @@
 >
     <!--  -->
     <Dialog
-        id="idCreateBookDialog"
+        id="idCreateBookDialogUIHG"
         resizable="true"
         draggable="true"
         contentWidth="30%"
@@ -33,7 +33,7 @@
                 singleContainerFullSize="false"
             >
                 <Label
-                    id="idAuthorNameLabelCreate"
+                    id="idAuthorNameLabelCreate2347IUYHAI"
                     text="Author Name"
                 />
                 <Input
@@ -41,7 +41,7 @@
                     value="{newBookModel>/authorName}"
                 />
                 <Label
-                    id="idbookNameLabelCreate"
+                    id="idbookNameLabelCreateKHB"
                     text="Book Title"
                 />
                 <Input
@@ -49,7 +49,7 @@
                     value="{newBookModel>/title}"
                 />
                 <Label
-                    id="idstockLabelCreate"
+                    id="idstockLabelCreateTCYF"
                     text="Stock"
                 />
                 <Input
@@ -58,7 +58,7 @@
                     value="{newBookModel>/quantity}"
                 />
                 <Label
-                    id="idavailableQuantityLabelCreate"
+                    id="idavailableQuantityLabelCreateJGVHGV"
                     text="Available Stock"
                 />
                 <Input
@@ -67,7 +67,7 @@
                     value="{newBookModel>/availableQuantity}"
                 />
                 <Label
-                    id="idBookISBNLabelCreate"
+                    id="idBookISBNLabelCreateJGV"
                     text="ISBN"
                 />
                 <Input
@@ -77,28 +77,28 @@
             </form:SimpleForm>
         </content>
         <HBox
-            id="idHboxCreate"
+            id="idHboxCreateYGV"
             class="buttonsHbox"
         >
             <Button
                 class="buttons"
-                id="idUpdateButton"
+                id="idUpdateButtonKJGVJGV"
                 text="Update"
                 press="onUpdateBook"
                 type="Accept"
             />
             <Button
                 class="buttons"
-                id="idCreateButton"
+                id="idCreateButtonKIG"
                 text="Add"
                 press="onCreateBook"
                 type="Success"
             />
             <Button
                 class="buttons"
-                id="idCancelButton"
+                id="idCancelButtonKHG"
                 text="Cancel"
-                press="onCloseLoginDailog"
+                press="onCloseCreateBookDailog"
                 type="Negative"
             />
         </HBox>

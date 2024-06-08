@@ -1,1 +1,1 @@
-ID,borrowerName,borrowerUserId,borrowingBookName,dueOn
+ID,borrowerName,borrowerUserId,borrowingBookName,borrowingBookISBN,dueOn

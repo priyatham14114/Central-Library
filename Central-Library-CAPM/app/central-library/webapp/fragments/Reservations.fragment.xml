@@ -17,6 +17,7 @@
                 id="idReservationsTable"
                 inset="false"
                 items="{/Reservations}"
+                mode="MultiSelect"
             >
                 <headerToolbar>
                     <Toolbar id="idReservationsToolBar">
@@ -25,11 +26,7 @@
                             text="All Reservations"
                         />
                         <ToolbarSpacer id="idReservationsSpacer" />
-                        <!-- <Button
-                            id="idReservationsAddButton"
-                            text="Add"
-                            press="onNewReservationPress"
-                        /> -->
+                       
                         <Button
                             id="idNewReservationCloseBTN"
                             text="close"
@@ -62,26 +59,38 @@
                             text="Reservation ID"
                         />
                     </Column>
+                    <Column id="idNewReservationTablecol6">
+                        <Text
+                            id="idReservationIssueBTN"
+                            text="Issue Book"
+                        />
+                    </Column>
                 </columns>
                 <items>
                     <ColumnListItem id="idNewReservationTableColListItems">
                         <cells>
                             <Text
                                 id="idNewReservationTableNameValue"
-                                text="{ReserverdUserName}"
+                                text="{ReservedUserName}"
                             />
                             <Text
                                 id="idNewReservationTableUserIdValue"
-                                text="{ReserverdUserId}"
+                                text="{ReservedUserId}"
                             />
                             <Text
                                 id="idNewReservationTableBookNameValue"
-                                text="{ReserverdBook}"
+                                text="{ReservedBook}"
                             />
                             <Text
                                 id="idNewReservationTableReservationID"
                                 text="{ID}"
                             />
+                             <Button
+                            id="idReservationsAddButton"
+                            text="Issue"
+                            type="Emphasized"
+                            press="onIssueBookFromReservations"
+                        />
                         </cells>
                     </ColumnListItem>
                 </items>

@@ -23,7 +23,7 @@
         <endButton>
             <Button
                 id="idSignUpCancelButton"
-                text="Cancel"
+                text="Close"
                 press="onSignUpCancel"
                 type="Reject"
             />

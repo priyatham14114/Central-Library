@@ -57,6 +57,14 @@
                     value="{newLoanModel>/borrowingBookName}"
                 />
                 <Label
+                    id="idNewLoanBookISBN"
+                    text="ISBN"
+                />
+                <Input
+                    id="idNewLoanBookISBNInput"
+                    value="{newLoanModel>/borrowingBookISBN}"
+                />
+                <Label
                     id="idNewLoanDueDate"
                     text="Due Date"
                 />

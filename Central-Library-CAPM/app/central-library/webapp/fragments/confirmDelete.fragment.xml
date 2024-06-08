@@ -4,7 +4,7 @@
     xmlns:form="sap.ui.layout.form"
 >
     <Dialog
-        id="idConfirmCloseLoanDailog2"
+        id="idConfirmCloseLoanDailog2UY"
         resizable="true"
         draggable="true"
         contentWidth="40%"
@@ -13,7 +13,7 @@
     >
         <content>
             <form:SimpleForm
-                id="idConfirmDeleteForm"
+                id="idConfirmDeleteFormUGY"
                 layout="ResponsiveGridLayout"
                 labelSpanXL="3"
                 labelSpanL="3"
@@ -29,16 +29,16 @@
                 columnsM="1"
                 singleContainerFullSize="false"
             >
-                <VBox id="idVbox">
-                    <Label id="idDeleteCaution" text="CAUTION : " />
+                <VBox id="idVboxuskyagdfsjb">
+                    <Label id="idDeleteCaution123esdfg" text="CAUTION : " />
                     <Label id="idDeleteCaution1" text="Are you sure you want to delete selected record ?" />
                     <Label id="idDeleteCaution2" text="Make sure the person returned all the books..!" />
                     <HBox
-                        id="idHboxCreate"
+                        id="idHboxCreateKJYF"
                         class="buttonsHbox"
                     >
                         <Button
-                            id="idClearLoanButton2"
+                            id="idClearLoanButton2BNIBUJ"
                             icon="sap-icon://delete"
                             tooltip="Delete Record"
                             text="Confirm"
@@ -47,7 +47,7 @@
                         />
                         <Button
                             class="buttons"
-                            id="idCloseCautionConfirmPopUp"
+                            id="idCloseCautionConfirmPopUpJVGJG"
                             text="Cancel"
                             press="oDeleteCautionDailogClose"
                             type="Default"
