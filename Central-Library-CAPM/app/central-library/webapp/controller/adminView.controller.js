@@ -1,3 +1,4 @@
+
 sap.ui.define([
     "./baseController",
     // "sap/ui/core/mvc/Controller",
@@ -218,7 +219,7 @@ sap.ui.define([
                 oBookBinding.requestContexts().then(function (aBookContexts) {
                     if (aBookContexts.length > 0) {
                         var oBookContext = aBookContexts[0];
-                        var oBookData = oBookContext.getObject();
+                        var oBookData = oBookContext.getObject()
                         //  oBookData.title = oPayload.title
                         //  oBookData.authorName = oPayload.authorName
                         //  oBookData.quantity = oPayload.quantity
@@ -587,9 +588,8 @@ sap.ui.define([
                                 MessageToast.show("Book not found");
                             }
                         });
-                    },
-                        function (oError) {
-                            MessageToast.show("Deletion Error: " + oError.message);
+                    },function (error) {
+                            MessageToast.show("Deletion Error: " + error.message);
                         });
 
                     this.getView().byId("idLoanTable").getBinding("items").refresh();

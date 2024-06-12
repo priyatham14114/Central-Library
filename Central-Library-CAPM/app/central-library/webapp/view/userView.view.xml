@@ -61,6 +61,21 @@
                     />
                 </expandedContent>
                 <actions>
+                    <!-- <m:Button
+                        id="idNotificationicon"
+                        class="sapUiTinyMarginBeginEnd"
+                        icon="sap-icon://bell"
+                        tooltip="Notifications"
+                    >
+                        <m:customData>
+                            <m:BadgeCustomData
+                                id="idBadge"
+                                key="badge"
+                                value=""
+                                visible="true"
+                            />
+                        </m:customData>
+                    </m:Button> -->
                     <m:Button
                         id="idLogOutbutton"
                         type="Ghost"
@@ -276,11 +291,12 @@
                                             id="idUserInputValue"
                                             showValueHelp="false"
                                         />
-                                        <m:Button id="idUserNameSearch"
+                                        <m:Button
+                                            id="idUserNameSearch"
                                             type="Default"
                                             text="Filter"
                                             press="onFilterCilck"
-                                         />
+                                        />
                                     </m:OverflowToolbar>
                                 </m:headerToolbar>
                                 <m:columns>

@@ -19,7 +19,7 @@
         headerExpanded="true"
     >
         <f:title>
-            <f:DynamicPageTitle id="booksDataPageTitle">
+            <f:DynamicPageTitle id="booksDataPageTitle"  class="adminPageHeader">
                 <f:expandedContent>
                     <Label
                         id="idBooksDataListPage"
@@ -57,7 +57,7 @@
         </f:title>
 
         <f:header>
-            <f:DynamicPageHeader id="idDynamicPageHeader">
+            <f:DynamicPageHeader class="adminPageHeader" id="idDynamicPageHeader">
                 <HBox
                     id="idFilterHLayout"
                     alignContent="SpaceAround"
