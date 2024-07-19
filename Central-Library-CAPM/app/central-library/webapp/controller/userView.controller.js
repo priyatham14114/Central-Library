@@ -8,7 +8,7 @@ sap.ui.define(
         "sap/ui/model/FilterOperator"
 
     ],
-    function (Controller, MessageToast, JSONModel,Token,Filter,FilterOperator) {
+    function (Controller, MessageToast, JSONModel, Token, Filter, FilterOperator) {
         "use strict";
 
         /**
@@ -50,50 +50,69 @@ sap.ui.define(
             onLogoutPress: function () {
                 debugger
                 const oRouter = this.getOwnerComponent().getRouter()
-                oRouter.navTo("RouteloginView")
+                oRouter.navTo("RouteloginView", {}, true)
 
             },
             onRefresh: function () {
                 this.getView().byId("idBooksTable").getBinding("items").refresh()
+            },
+            onUserRefresh: function () {
+                this.getView().byId("idUserActiveLoanTable").getBinding("items").refresh()
             },
             onReserveBookPress: async function () {
                 debugger
                 const oView = this.getView()
                 var oSelected = this.byId("idBooksTable").getSelectedItem()
                 if (oSelected) {
-                    // var oStock = oSelected.getBindingContext().getObject().quantity
-                    // oAvailStock = oSelected.getBindingContext().getObject().availableQuantity
                     var oAvailStock = oSelected.getBindingContext().getObject().availableQuantity,
                         oBookName = oSelected.getBindingContext().getObject().title,
                         oUser = oView.byId("idUserName").getText(),
                         oUserId = oView.byId("idUserIdLink").getText()
 
                     if (oAvailStock === "0") {
+                        MessageToast.show("Book not available")
+                        
+                    } else {
+                        var oModel = this.getView().getModel();
+                        var oBinding = oModel.bindList("/Reservations");
 
-                        const oBinding = oView.getModel().bindList("/Reservations")
-                        oBinding.create({
-                            ReservedUserName: oUser,
-                            ReservedUserId: oUserId,
-                            ReservedBook: oBookName
+                        oBinding.filter([
+                            new Filter("ReservedUserId", FilterOperator.EQ, oUserId),
+                            new Filter("ReservedBook", FilterOperator.EQ, oBookName)
+                        ]);
 
+                        oBinding.requestContexts().then(function (aContexts) {
+                            if (aContexts.length > 0) {
+                                MessageToast.show("You already reserved this Book")
+                            } else {
+                                const oBinding = oView.getModel().bindList("/Reservations")
+                                oBinding.create({
+                                    ReservedUserName: oUser,
+                                    ReservedUserId: oUserId,
+                                    ReservedBook: oBookName
+
+                                })
+
+                                MessageToast.show("Reservation Sent to Admin")
+
+                            }
                         })
-
-                        MessageToast.show("Reservation Sent to Admin")
                     }
-                    else {
-                        MessageToast.show("Book is available you don't need to reserve")
-                    }
-                }else{
+                } else {
                     MessageToast.show("Select a book to reserve")
                 }
+
             },
             onFilterCilck: function () {
+                debugger
                 const oUserView = this.getView(),
-                oBorrowTable = oUserView.byId("idUserActiveLoanTable"),
-                    sBook = oUserView.byId("idUserInputValue").getValue()
+                    oBorrowTable = oUserView.byId("idUserActiveLoanTable"),
+                    sInput = oUserView.byId("idUserInputValue").getValue()
                 var aFilters = []
+                
 
-                sBook ? aFilters.push(new Filter("borrowingBookName", FilterOperator.EQ, sBook)): "";
+                sInput ? aFilters.push(new Filter("borrowingBookName", FilterOperator.EQ, sInput)) : "";
+                // sInput ? aFilter2.push(new Filter("borrowerName", FilterOperator.EQ, sInput)) : "";
 
                 // sUser.filter((ele) => {
                 //     ele ? aFilters.push(new Filter("borrowerName", FilterOperator.EQ, ele.getKey())) : "";

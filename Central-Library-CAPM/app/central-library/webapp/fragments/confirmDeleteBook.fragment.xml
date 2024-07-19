@@ -1,0 +1,58 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:form="sap.ui.layout.form"
+>
+
+    <Dialog
+        id="idBookDeleteDailog"
+        resizable="true"
+        draggable="true"
+        title="Confirm Delete"
+    >
+    <content>
+            <form:SimpleForm
+                id="idConfirmBookDeleteForm"
+                editable="true"
+                layout="ResponsiveGridLayout"
+                labelSpanXL="3"
+                labelSpanL="3"
+                labelSpanM="3"
+                labelSpanS="12"
+                adjustLabelSpan="false"
+                emptySpanXL="4"
+                emptySpanL="4"
+                emptySpanM="4"
+                emptySpanS="0"
+                columnsXL="1"
+                columnsL="1"
+                columnsM="1"
+                singleContainerFullSize="false"
+            >
+               <Text id="idConfirmDeleteBookPOPUP" text="CAUTION:" />
+               <Text id="idConfirmDeleteBookTEXT" text="Are you sure want to delete Book ?" />
+            </form:SimpleForm>
+        </content>
+        <HBox
+            id="idHboxBookDElete"
+            class="buttonsHbox"
+        >
+            <Button
+                class="buttons"
+                id="idBookDEleteButtonConfirm"
+                text="Delete"
+                press="onConfirmDeleteButtonPress"
+                type="Reject"
+            />
+            <Button
+                class="buttons"
+                id="idBookDEleteCancelButton"
+                text="Cancel"
+                press="onCloseIssueBookButton"
+                type="Emphasized"
+            />
+        </HBox>
+
+    </Dialog>
+    
+</core:FragmentDefinition>

@@ -6,7 +6,7 @@ entity Books : cuid {
   authorName        : String;
   title             : String;
   ISBN              : String;
-  quantity          : String;
+  quantity          : Integer64;
   availableQuantity : Integer64;
   // manyUsersloans    : Composition of many Activeloans
   //                       on manyUsersloans.takenbooks = $self
@@ -24,7 +24,7 @@ entity UserLogin : cuid {
   photo        : LargeString;
 }
 
-entity Activeloans : cuid {
+entity Activeloans : cuid { 
   borrowerName : String;
   borrowerUserId : String;
   borrowingBookName : String;

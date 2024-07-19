@@ -6,12 +6,12 @@ sap.ui.define([
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
     "sap/m/MessageToast",
-    "sap/ui/model/json/JSONModel"
+    "sap/ui/model/json/JSONModel",
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, Token, Filter, FilterOperator, MessageToast, JSONModel) {
+    function (Controller, Token, Filter, FilterOperator, MessageToast, JSONModel, MessageBox) {
         "use strict";
 
         return Controller.extend("com.app.centrallibrary.controller.adminView", {
@@ -81,7 +81,7 @@ sap.ui.define([
             onLogoutPress: function () {
                 const oRouter = this.getOwnerComponent().getRouter()
                 MessageToast.show("Successfully Logged Out")
-                oRouter.navTo("RouteloginView")
+                oRouter.navTo("RouteloginView", {}, true)
 
             },
 
@@ -204,6 +204,7 @@ sap.ui.define([
             },
 
             onUpdateBook: function () {
+                debugger
                 var oPayload = this.getView().getModel("newBookModel").getData()
                 var oTable = this.getView().byId("idBooksTable");
                 var oSelectedItem = oTable.getSelectedItem();
@@ -238,6 +239,11 @@ sap.ui.define([
                             // Submit the changes
                             oModel.submitBatch("updateGroup").then(function () {
                                 oTable.getBinding("items").refresh();
+                                oThis.getView().byId("idAuthorName").setValue("")
+                                oThis.getView().byId("idbookNameInput").setValue("")
+                                oThis.getView().byId("idStockInput").setValue("")
+                                oThis.getView().byId("idavailableQuantityInput").setValue("")
+                                oThis.getView().byId("idbooks_ISBNInput").setValue("")
                                 oThis.oCreateBookPop.close();
                                 MessageToast.show("Book Updated Successfully");
                             }).catch(function (oError) {
@@ -259,53 +265,132 @@ sap.ui.define([
                 var oModel = this.getView().getModel(),
                     oBinding = oModel.bindList("/Books")
                 // var oContext = this.getView().byId("idBooksTable").getBinding("items")
-                var oNewBook = this.getView().getModel("newBookModel").getData();
-                oBinding.create(oNewBook, {
-                    success: function () {
-                        MessageToast.show("Book created successfully");
+                var oNewBook = this.getView().getModel("newBookModel").getData()
 
-                    },
-                    refresh: oView.byId("idBooksTable").getBinding("items").refresh(),
-                    // setData:oView.getModel("newBookModel").setData(),
-                    error: function () {
-                        MessageToast.show("Error creating book");
-                    }
-                });
-                // oView.byId("idAuthorName").setValue(""),
-                //     oView.byId("idbookNameInput").setValue(""),
-                //     oView.byId("idStockInput").setValue(""),
-                //     oView.byId("idavailableQuantityInput").setValue(""),
-                //     oView.byId("idbooks_ISBNInput").setValue(""),
-                this.oCreateBookPop.close()
-                // this.getView().byId("idBooksTable").getBinding("items").refresh()
 
-            },
-            onCloseCreateBookDailog: function () {
+                var iAvalStock = oNewBook.availableQuantity
+                var iStock = oNewBook.quantity
 
-                if (this.oCreateBookPop.isOpen()) {
+                if (iStock >= iAvalStock) {
+                    oBinding.create(oNewBook, {
+                        success: MessageToast.show("Book created successfully"),
+                        refresh: oView.byId("idBooksTable").getBinding("items").refresh(),
+                        // setData:oView.getModel("newBookModel").setData(),
+                        error: function () {
+                            MessageToast.show("Error creating book");
+                        }
+                    });
+
+                    oView.byId("idAuthorName").setValue("")
+                    oView.byId("idbookNameInput").setValue("")
+                    oView.byId("idStockInput").setValue("")
+                    oView.byId("idavailableQuantityInput").setValue("")
+                    oView.byId("idbooks_ISBNInput").setValue("")
+
                     this.oCreateBookPop.close()
+                    // this.getView().byId("idBooksTable").getBinding("items").refresh()
+                } else {
+                    MessageToast.show("Avilable Stock should be lesser or equal to the Stock")
                 }
 
             },
+            onCloseCreateBookDailog: function () {
+                if (this.oCreateBookPop.isOpen()) {
+                    this.oCreateBookPop.close()
+                }
+            },
+            onDeleteBooks: async function () {
+                const oselected = this.getView().byId("idBooksTable").getSelectedItem()
+                if (oselected) {
+                    if (!this.oConfirmBookDel) {
+                        this.oConfirmBookDel = await this.loadFragment("confirmDeleteBook")
+                    }
+                    this.oConfirmBookDel.open()
+                } else {
+                    MessageToast.show("Select a record to delete")
+                }
+            },
 
-            onDeleteBooks: function (oEvent) {
-                // debugger;
-                var oSelected = this.byId("idBooksTable").getSelectedItem();
+            // onDeleteSelected: function () {
+            //     var oTable = this.byId("myTable");
+            //     var aSelectedItems = oTable.getSelectedItems();
+
+            //     if (aSelectedItems.length === 0) {
+            //         MessageBox.warning("Please select at least one item to delete.");
+            //         return;
+            //     }
+
+            //     MessageBox.confirm("Are you sure you want to delete the selected items?", {
+            //         actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+            //         onClose: function (oAction) {
+            //             if (oAction === MessageBox.Action.YES) {
+            //                 this._deleteSelectedItems(aSelectedItems);
+            //             }
+            //         }.bind(this)
+            //     });
+            // },
+
+            //         _deleteSelectedItems: function (aSelectedItems) {
+            //             var oModel = this.getView().getModel();
+            // var aPromises = [];
+
+            // aSelectedItems.forEach(function (oItem) {
+            //     var sPath = oItem.getBindingContext().getPath();
+            //     aPromises.push(new Promise(function (resolve, reject) {
+            //         oModel.remove(sPath, {
+            //             success: resolve,
+            //             error: reject
+            //         });
+            //     }));
+            // });
+
+            //             Promise.all(aPromises)
+            //                 .then(function () {
+            //                     MessageBox.success("Selected items deleted successfully.");
+            //                     oTable.removeSelections(true); // Deselect all items
+            //                 })
+            //                 .catch(function () {
+            //                     MessageBox.error("Error occurred while deleting items.");
+            //                 });
+            //         }
+            //     });
+            // })
+
+            onConfirmDeleteButtonPress: function () {
+                debugger;
+                var othis = this
+                var oSelected = this.byId("idBooksTable").getSelectedItems();
                 if (oSelected) {
-                    var oBookName = oSelected.getBindingContext().getObject().title;
+                    // var oBookName = oSelected.getBindingContext().getObject().title;
+                    // var oBookAvilableQnty = oSelected.getBindingContext().getObject().availableQuantity;
+                    // var oBookTotalQnty = oSelected.getBindingContext().getObject().quantity;
+                    var aBindingContexts = [];
 
-                    oSelected.getBindingContext().delete("$auto").then(() => {
+                    oSelected.forEach(function (oItem) {
+                        var oBindingcontext = oItem.getBindingContext();
+                        aBindingContexts.push(oBindingcontext)
+                    });
 
-                        MessageToast.show(oBookName + " SuccessFully Deleted");
+                    aBindingContexts.forEach(function (oRecord) {
+                        var avail = oRecord.getObject().availableQuantity
+                        var Stock = oRecord.getObject().quantity
 
-                    },
-                        (oError) => {
-                            MessageToast.show("Deletion Error: ", oError);
-                        });
-                    this.getView().byId("idBooksTable").getBinding("items").refresh();
-
+                        if (avail === Stock) {
+                            oRecord.delete("$auto")
+                            MessageToast.show("Book Deleted");
+                            othis.oConfirmBookDel.close()
+                            // othis.getView().byId("idBooksTable").getBinding("items").refresh()
+                        } else {
+                            MessageToast.show("You can not delete the issued book")
+                        }
+                    });
                 } else {
                     MessageToast.show("Please Select a Book to Delete");
+                }
+            },
+            onCloseIssueBookButton: function () {
+                if (this.oConfirmBookDel.isOpen()) {
+                    this.oConfirmBookDel.close()
                 }
             },
 
@@ -588,9 +673,9 @@ sap.ui.define([
                                 MessageToast.show("Book not found");
                             }
                         });
-                    },function (error) {
-                            MessageToast.show("Deletion Error: " + error.message);
-                        });
+                    }, function (error) {
+                        MessageToast.show("Deletion Error: " + error.message);
+                    });
 
                     this.getView().byId("idLoanTable").getBinding("items").refresh();
                 } else {
